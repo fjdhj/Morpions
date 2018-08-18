@@ -1,13 +1,19 @@
 package Menu;
 
 
+import java.awt.BorderLayout;
 import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Main {
-
+	
+	private static JLabel title = new JLabel("Jeu du morpion");
+	
+	private static JPanel PANtitle = new JPanel();
+	
 	public static void main(String[] args) {
 		
 		JFrame frame = new JFrame();
@@ -17,12 +23,17 @@ public class Main {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		frame.setLayout(null);
+		frame.setLayout(new BorderLayout());
 		
-		JLabel title = new JLabel("Jeu du morpion");
+		
 		title.setFont(new Font("Arial", Font.BOLD, 20));
-
+		PANtitle.add(title);
 		
+		frame.add(PANtitle, BorderLayout.NORTH);
+		
+		/*
+		 UN TRES GROS TEST
+		 */
 		
 		frame.setVisible(true);
 		
