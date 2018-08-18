@@ -17,6 +17,7 @@ public class Main {
 	private static JButton player = new JButton("Joueur VS Joueur");
 	
 	private static JPanel PANtitle = new JPanel();
+	private static JPanel PANbutton = new JPanel();
 	
 	public static void main(String[] args) {
 		
@@ -33,14 +34,13 @@ public class Main {
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		PANtitle.add(title);
 		
+		PANbutton.add(IA);
+		PANbutton.add(player);
+		
 		frame.add(PANtitle, BorderLayout.NORTH);
-		
-		/*
-		 UN TRES GROS TEST 2
-		 */
+		frame.add(PANbutton, BorderLayout.CENTER);
 		
 		
-		// UN PLUS GROS TEST ENCORE
 		frame.setVisible(true);
 		
 	}
