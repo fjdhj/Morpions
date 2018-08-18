@@ -4,6 +4,7 @@ package Menu;
 import java.awt.BorderLayout;
 import java.awt.Font;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,6 +12,9 @@ import javax.swing.JPanel;
 public class Main {
 	
 	private static JLabel title = new JLabel("Jeu du morpion");
+	
+	private static JButton IA = new JButton("Joueur VS IA");
+	private static JButton player = new JButton("Joueur VS Joueur");
 	
 	private static JPanel PANtitle = new JPanel();
 	
@@ -32,7 +36,7 @@ public class Main {
 		frame.add(PANtitle, BorderLayout.NORTH);
 		
 		/*
-		 UN TRES GROS TEST
+		 UN TRES GROS TEST 2
 		 */
 		
 		frame.setVisible(true);
