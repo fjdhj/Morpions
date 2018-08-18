@@ -7,6 +7,7 @@ import objects.*;
 /*-----------------UTILISATION DE LA CLASSE-----------------------
 
 Objet à construire une unique fois.
+
 Le constructeur peut prendre ou pas de parametres. 
 Si l'objet a été construit sans parametres il est obligatoire d'invoquer 
 la méthode init().

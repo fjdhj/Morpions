@@ -24,7 +24,7 @@ public class Frame extends JFrame{
 		this.setTitle("Morpion");
 		this.setSize(600, 500);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(Jthis.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 		
 		this.setLayout(new BorderLayout());
 		
