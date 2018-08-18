@@ -2,6 +2,8 @@ package Menu;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,7 +34,7 @@ public class Frame extends JFrame{
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		PANtitle.add(title);
 		
-		IA.addActionListener(new Main.Listener());
+		IA.addActionListener(new Listener());
 		
 		
 		PANbutton.add(IA);
@@ -44,5 +46,12 @@ public class Frame extends JFrame{
 		
 		this.setVisible(true);
 	}
+	
+	public class Listener implements ActionListener {
 
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated constructor stub
+		}
+
+	}
 }

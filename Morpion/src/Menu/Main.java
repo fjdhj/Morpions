@@ -16,11 +16,5 @@ public class Main {
 	
 	
 	
-	public class Listener implements ActionListener {
-
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated constructor stub
-		}
-
-	}
+	
 }
