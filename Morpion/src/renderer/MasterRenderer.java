@@ -31,17 +31,24 @@ public class MasterRenderer {
 		init(name, height, width);
 	}
 	
+	public void setVisible(boolean visible) throws DisplayException {
+		if(!Init) {
+			Display.setVisible(visible);
+		}else {throw new DisplayException("L'affiche n'a pas été initalisé correctement.");}
+	}
+	
 	//Méthode de d'initialisation
 	public void init(String name, int height, int width) {
 		Init =true;
 		Display = new JFrame(name);
 		Display.setSize(height, width);
+		Display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Display.setLocationRelativeTo(null);
+
 	}
 	
 	//Méthode de rendu
-	public void render(ArrayList<Jeton> ObjectsToRenderList) throws DisplayException {
-		if(!Init) {
-			
-		}else {throw new DisplayException("L'affiche n'a pas été initalisé correctement.");}
+	public void render(ArrayList<Jeton> ObjectsToRenderList){
+
 	}
 }
