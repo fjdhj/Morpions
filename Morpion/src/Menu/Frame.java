@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 
 import objects.Croix;
 import objects.Jeton;
-import renderer.DisplayException;
 import renderer.MasterRenderer;
 
 public class Frame extends JFrame{
