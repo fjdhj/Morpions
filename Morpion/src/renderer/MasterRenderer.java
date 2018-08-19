@@ -31,32 +31,14 @@ public class MasterRenderer {
 		this.Display = Display;
 	}
 	
-	public MasterRenderer(String name, int height, int width) {
-		init(name, height, width);
-	}
-	
 	public void setVisible(boolean visible){
 			Display.setVisible(visible);
 	}
 	
 	public void activateRenderPane() {
 		this.Display.setContentPane(ContentPane);
+		this.Display.validate();
 	}	
-	
-	public void disableRenderPane(JPanel ContentPane) {
-		this.Display.setContentPane(ContentPane);
-	}
-	
-	//Méthode de d'initialisation
-	public void init(String name, int height, int width) {
-		Init =true;
-		Display = new JFrame(name);
-		activateRenderPane();
-		Display.setSize(height, width);
-		Display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Display.setLocationRelativeTo(null);
-
-	}
 	
 	//Méthode de rendu
 	public void render(ArrayList<Jeton> ObjectsToRenderList){
@@ -65,5 +47,14 @@ public class MasterRenderer {
 	}
 	public void render() {
 		ContentPane.repaint();
+	}
+	public void updateRenderList(ArrayList<Jeton> ObjectsToRenderList) {
+		ContentPane.prepare(ObjectsToRenderList);
+	}
+	
+	
+	public JPanel getGraphicPane() {
+		return ContentPane;
+		
 	}
 }

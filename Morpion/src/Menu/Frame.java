@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -13,6 +16,7 @@ import javax.swing.JPanel;
 
 import objects.Croix;
 import objects.Jeton;
+import objects.Rond;
 import renderer.MasterRenderer;
 
 public class Frame extends JFrame{
@@ -24,8 +28,10 @@ public class Frame extends JFrame{
 	
 	private static JPanel PANtitle = new JPanel();
 	private static JPanel PANbutton = new JPanel();
+	private static JPanel PANglobal = new JPanel();
 	
 	private MasterRenderer renderer;
+	private boolean PanelActive = false;
 	
 	public Frame() {
 		
@@ -34,7 +40,7 @@ public class Frame extends JFrame{
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 		
-		this.setLayout(new BorderLayout());
+		PANglobal.setLayout(new BorderLayout());
 		
 		
 		title.setFont(new Font("Arial", Font.BOLD, 20));
@@ -46,30 +52,40 @@ public class Frame extends JFrame{
 		PANbutton.add(IA);
 		PANbutton.add(player);
 		
-		this.add(PANtitle, BorderLayout.NORTH);
-		this.add(PANbutton, BorderLayout.CENTER);
+		PANglobal.add(PANtitle, BorderLayout.NORTH);
+		PANglobal.add(PANbutton, BorderLayout.CENTER);
 		
+		this.setContentPane(PANglobal);
 		
 		this.setVisible(true);
-		
 
-	/* test pour passer du JPanel de menu, au JPanel de rendu	renderer = new MasterRenderer(this);
+		renderer = new MasterRenderer(this);	
+
+}
+	//pour passer du menu principal au Panel de rendu
+	private void switchPane() {
 		
-		Ensuite: activateRenderPane() pour afficher le panel de rendu
-				 disableRenderPane(JPanel) pour afficher le panel spécifié
-		
-		Sinon il est possible (et plus sur) de créer une nouvelle fenetre pour le rendu de jeu -> voir MastereRenderer
-		
-		*/
-	}
-	
-	public class Listener implements ActionListener {
+		if(!PanelActive) {
+			PanelActive = true;
+		renderer.activateRenderPane();
+		}else{
+			PanelActive = false;
+			this.setContentPane(PANglobal);
+		}
+
+}
+
+	class Listener implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
 			
-			
-			
+			switchPane();
+
 		}
 
-	}
+		
+
 }
+}
+
+

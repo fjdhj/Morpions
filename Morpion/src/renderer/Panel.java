@@ -17,6 +17,7 @@ public class Panel extends JPanel {
 	private ArrayList<Jeton> RenderList = new ArrayList();
 
 	public void paintComponent(Graphics g){
+		System.out.println("Drawcall reçu :  "+ Thread.currentThread().getName());
 		height = this.getHeight();
 		width = this.getWidth();
 		
