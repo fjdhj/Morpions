@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import gamelogic.GameLogic;
 import gamelogic.InputsManager;
+import gamelogic.PvP;
 import ia.PvIA;
 import objects.Croix;
 import objects.Jeton;
@@ -49,7 +50,8 @@ public class Frame extends JFrame{
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		PANtitle.add(title);
 		
-		IA.addActionListener(new Listener());
+		IA.addActionListener(new IAListener());
+		player.addActionListener(new playerListener());
 		
 		
 		PANbutton.add(IA);
@@ -81,23 +83,23 @@ public class Frame extends JFrame{
 	private void StartPvIA() {
 		GameLogic gamemode = new PvIA();
 		InputsManager inputManager = new InputsManager(renderer.getGraphicPane(), gamemode);
-		
-		
-		
+		//Ensuite lancer l'IA
 		}
-	class Listener implements ActionListener {
-
+	
+	private void StartPvP() {
+		GameLogic gamemode = new PvP();
+		InputsManager inputManager = new InputsManager(renderer.getGraphicPane(), gamemode);
+		}
+	class IAListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			
 			switchPane();
 			StartPvIA();
 		}
-
-		
-
-		
-
+	}
+	class playerListener implements ActionListener {
+			public void actionPerformed(ActionEvent arg0) {
+				switchPane();
+				StartPvP();
+			}
 }
 }
-
-

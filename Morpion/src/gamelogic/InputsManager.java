@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import objects.Croix;
 
 public class InputsManager {
-	
+	private static final int PLAYER_ID = 1;
 	
 	public InputsManager(JPanel Panel, GameLogic Gamemode) {
 		Panel.addMouseListener(new MouseAdapter(){
@@ -46,7 +46,7 @@ public class InputsManager {
 		    	  }
 		    	  
 		    	  try {
-					Gamemode.casePressed(CaseX,CaseY);
+					Gamemode.casePressed(CaseX,CaseY, PLAYER_ID);
 					Gamemode.screenUpdt();
 				} catch (GameLogicException e1) {
 					System.out.println("Action interdite");

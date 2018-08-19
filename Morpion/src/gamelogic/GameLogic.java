@@ -9,27 +9,27 @@ import renderer.MasterRenderer;
 
 public abstract class GameLogic {
 	
+	public static final int IA_ID = 2;
+	public static final int HUMAN_ID = 1;
+	
 	protected ArrayList<Jeton> JetonsList = new ArrayList<Jeton>();
-	protected boolean Turn;
+	protected int IDTurn;
 	
 	public GameLogic() {
-		Turn = true; //    <-----------il faut rendre cela aléatoire
+		IDTurn = HUMAN_ID;
 	}
 	
-	public abstract void casePressed(int X, int Y) throws GameLogicException;
+	
+	public abstract void casePressed(int X, int Y,int ID) throws GameLogicException;
 		
+	
+	
 	public void screenUpdt() {
 		MasterRenderer.render(JetonsList);
 	}
+	protected abstract Jeton calculateTurn(int X, int Y, int ID) throws GameLogicException ;
 	
-	protected Jeton calculateTurn(int X, int Y) {
-		if(Turn) {
-			Turn = false;
-			return new Rond(X,Y);
-		}else {
-			Turn = true;
-			return new Croix(X,Y);
-		}
+	
 	}
 	
-}
+
