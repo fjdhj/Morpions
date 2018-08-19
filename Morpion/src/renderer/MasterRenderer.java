@@ -22,10 +22,12 @@ défini comme suit:   Jeton jeton = new Croix(0,0);
 public class MasterRenderer {
 
 	private JFrame Display;
+	private Panel ContentPane = new Panel();
 	private boolean Init = false;
 	
-	public MasterRenderer() {
-		
+	public MasterRenderer(JFrame Display) {
+		this.Display = Display;
+		this.Display.setContentPane(ContentPane);
 	}
 	
 	public MasterRenderer(String name, int height, int width) {
@@ -33,7 +35,7 @@ public class MasterRenderer {
 	}
 	
 	public void setVisible(boolean visible) throws DisplayException {
-		if(!Init) {
+		if(Init) {
 			Display.setVisible(visible);
 		}else {throw new DisplayException("L'affiche n'a pas été initalisé correctement.");}
 	}
@@ -42,6 +44,7 @@ public class MasterRenderer {
 	public void init(String name, int height, int width) {
 		Init =true;
 		Display = new JFrame(name);
+		Display.setContentPane(ContentPane);
 		Display.setSize(height, width);
 		Display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Display.setLocationRelativeTo(null);
@@ -49,7 +52,7 @@ public class MasterRenderer {
 	}
 	
 	//Méthode de rendu
-	public void render(ArrayList<Jeton> ObjectsToRenderList){
-
+	public void render(/*ArrayList<Jeton> ObjectsToRenderList*/){
+		ContentPane.repaint();
 	}
 }

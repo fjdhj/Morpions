@@ -10,6 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import renderer.DisplayException;
+import renderer.MasterRenderer;
+
 public class Frame extends JFrame{
 	
 	private static JLabel title = new JLabel("Jeu du morpion");
@@ -20,6 +23,7 @@ public class Frame extends JFrame{
 	private static JPanel PANtitle = new JPanel();
 	private static JPanel PANbutton = new JPanel();
 	
+	private MasterRenderer renderer;
 	
 	public Frame() {
 		
@@ -45,12 +49,17 @@ public class Frame extends JFrame{
 		
 		
 		this.setVisible(true);
+		
+		renderer = new MasterRenderer(this);
+		
 	}
 	
 	public class Listener implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated constructor stub
+			
+			
+			
 		}
 
 	}

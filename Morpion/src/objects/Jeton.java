@@ -1,5 +1,5 @@
 package objects;
-
+/*	Les valeurs x et y correspodent au numéro de la CASE dans la grille	*/
 public class Jeton {
 	private int x;
 	private int y;
