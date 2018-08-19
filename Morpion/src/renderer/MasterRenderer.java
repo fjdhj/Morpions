@@ -16,7 +16,7 @@ la méthode init().
 
 La methode render() prends en argument une liste d'objets Jeton. 
 ATTENTION, les jetons doivent etre des ronds ou des croix!!!!
-défini comme suit:   Jeton jeton = new Croix(1,1);
+définis comme suit:   Jeton jeton = new Croix(1,1);
 
 -----------------------------FIN--------------------------------*/
 
@@ -24,15 +24,11 @@ défini comme suit:   Jeton jeton = new Croix(1,1);
 public class MasterRenderer {
 
 	private JFrame Display;
-	private Panel ContentPane = new Panel();
+	private static Panel ContentPane = new Panel();
 	private boolean Init = false;
 	
 	public MasterRenderer(JFrame Display) {
 		this.Display = Display;
-	}
-	
-	public MasterRenderer(String name, int height, int width) {
-		init(name, height, width);
 	}
 	
 	public void setVisible(boolean visible){
@@ -41,29 +37,24 @@ public class MasterRenderer {
 	
 	public void activateRenderPane() {
 		this.Display.setContentPane(ContentPane);
+		this.Display.validate();
 	}	
 	
-	public void disableRenderPane(JPanel ContentPane) {
-		this.Display.setContentPane(ContentPane);
-	}
-	
-	//Méthode de d'initialisation
-	public void init(String name, int height, int width) {
-		Init =true;
-		Display = new JFrame(name);
-		activateRenderPane();
-		Display.setSize(height, width);
-		Display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Display.setLocationRelativeTo(null);
-
-	}
-	
 	//Méthode de rendu
-	public void render(ArrayList<Jeton> ObjectsToRenderList){
+	public static void render(ArrayList<Jeton> ObjectsToRenderList){
 		ContentPane.prepare(ObjectsToRenderList);
 		ContentPane.repaint();
 	}
 	public void render() {
 		ContentPane.repaint();
+	}
+	public void updateRenderList(ArrayList<Jeton> ObjectsToRenderList) {
+		ContentPane.prepare(ObjectsToRenderList);
+	}
+	
+	
+	public JPanel getGraphicPane() {
+		return ContentPane;
+		
 	}
 }
