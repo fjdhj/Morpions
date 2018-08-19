@@ -29,17 +29,14 @@ public class MasterRenderer {
 	
 	public MasterRenderer(JFrame Display) {
 		this.Display = Display;
-		activateRenderPane();
 	}
 	
 	public MasterRenderer(String name, int height, int width) {
 		init(name, height, width);
 	}
 	
-	public void setVisible(boolean visible) throws DisplayException {
-		if(Init) {
+	public void setVisible(boolean visible){
 			Display.setVisible(visible);
-		}else {throw new DisplayException("L'affiche n'a pas été initalisé correctement.");}
 	}
 	
 	public void activateRenderPane() {
@@ -64,6 +61,9 @@ public class MasterRenderer {
 	//Méthode de rendu
 	public void render(ArrayList<Jeton> ObjectsToRenderList){
 		ContentPane.prepare(ObjectsToRenderList);
+		ContentPane.repaint();
+	}
+	public void render() {
 		ContentPane.repaint();
 	}
 }
