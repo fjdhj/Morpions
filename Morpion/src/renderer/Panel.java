@@ -2,16 +2,21 @@ package renderer;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
+
+import objects.Croix;
+import objects.Jeton;
+import objects.Rond;
 
 public class Panel extends JPanel {
 	
 	private int height;
 	private int width;
+	private ArrayList<Jeton> RenderList = new ArrayList();
 
-	@Override
-	 public void paintComponent(Graphics g){
+	public void paintComponent(Graphics g){
 		height = this.getHeight();
 		width = this.getWidth();
 		
@@ -35,8 +40,17 @@ public class Panel extends JPanel {
 			g.drawLine(0, START_BACK_LINES[i], width, START_BACK_LINES[i]);
 			}
 		}
-		drawCenteredCross(g,caseWidth/2 , caseHeight/2,caseHeight,caseWidth);
-		drawCenteredCircle(g, 3*caseWidth/2,3*caseHeight/2, 40);
+		
+
+		for(Jeton jeton: RenderList) {
+			if(jeton instanceof Rond) {
+				drawCenteredCircle(g,caseWidth* jeton.getX() - caseWidth/2 , caseHeight* jeton.getY() - caseHeight/2,40);
+			}
+			if(jeton instanceof Croix) {
+				drawCenteredCross(g,caseWidth* jeton.getX() - caseWidth/2 , caseHeight* jeton.getY() - caseHeight/2,caseHeight,caseWidth);
+			}
+		}
+		
 	}
 	
 
@@ -50,5 +64,10 @@ public class Panel extends JPanel {
 		y = y-(r/2);
 		g.drawOval(x,y,r,r);
 		
+	}
+
+
+	public void prepare(ArrayList<Jeton> objectsToRenderList) {
+		RenderList = objectsToRenderList;
 	}
 }

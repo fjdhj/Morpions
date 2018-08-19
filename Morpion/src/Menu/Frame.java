@@ -4,12 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import objects.Croix;
+import objects.Jeton;
 import renderer.DisplayException;
 import renderer.MasterRenderer;
 
@@ -50,6 +53,7 @@ public class Frame extends JFrame{
 		
 		this.setVisible(true);
 		
+
 	/* test pour passer du JPanel de menu, au JPanel de rendu	renderer = new MasterRenderer(this);
 		
 		Ensuite: activateRenderPane() pour afficher le panel de rendu

@@ -10,13 +10,13 @@ import objects.*;
 
 Objet à construire une unique fois.
 
-Le constructeur peut prendre ou pas de parametres. 
+Le constructeur peut prendre une JFrame ou des parametres. 
 Si l'objet a été construit sans parametres il est obligatoire d'invoquer 
 la méthode init().
 
 La methode render() prends en argument une liste d'objets Jeton. 
 ATTENTION, les jetons doivent etre des ronds ou des croix!!!!
-défini comme suit:   Jeton jeton = new Croix(0,0);
+défini comme suit:   Jeton jeton = new Croix(1,1);
 
 -----------------------------FIN--------------------------------*/
 
@@ -62,7 +62,8 @@ public class MasterRenderer {
 	}
 	
 	//Méthode de rendu
-	public void render(/*ArrayList<Jeton> ObjectsToRenderList*/){
+	public void render(ArrayList<Jeton> ObjectsToRenderList){
+		ContentPane.prepare(ObjectsToRenderList);
 		ContentPane.repaint();
 	}
 }
