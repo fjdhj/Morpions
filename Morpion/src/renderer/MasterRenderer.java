@@ -16,7 +16,7 @@ la méthode init().
 
 La methode render() prends en argument une liste d'objets Jeton. 
 ATTENTION, les jetons doivent etre des ronds ou des croix!!!!
-défini comme suit:   Jeton jeton = new Croix(1,1);
+définis comme suit:   Jeton jeton = new Croix(1,1);
 
 -----------------------------FIN--------------------------------*/
 
@@ -24,7 +24,7 @@ défini comme suit:   Jeton jeton = new Croix(1,1);
 public class MasterRenderer {
 
 	private JFrame Display;
-	private Panel ContentPane = new Panel();
+	private static Panel ContentPane = new Panel();
 	private boolean Init = false;
 	
 	public MasterRenderer(JFrame Display) {
@@ -41,7 +41,7 @@ public class MasterRenderer {
 	}	
 	
 	//Méthode de rendu
-	public void render(ArrayList<Jeton> ObjectsToRenderList){
+	public static void render(ArrayList<Jeton> ObjectsToRenderList){
 		ContentPane.prepare(ObjectsToRenderList);
 		ContentPane.repaint();
 	}

@@ -9,7 +9,7 @@ public class PvIA extends GameLogic{
 
 	@Override
 	public void casePressed(Jeton jeton) throws GameLogicException {
-		// TODO Auto-generated method stub
+		JetonsList.add(jeton);
 		
 	}
 

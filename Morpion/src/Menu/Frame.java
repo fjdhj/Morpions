@@ -14,7 +14,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import gamelogic.GameLogic;
 import gamelogic.InputsManager;
+import ia.PvIA;
 import objects.Croix;
 import objects.Jeton;
 import objects.Rond;
@@ -77,7 +79,8 @@ public class Frame extends JFrame{
 }
 
 	private void StartPvIA() {
-		InputsManager inputManager = new InputsManager(renderer.getGraphicPane());
+		GameLogic gamemode = new PvIA();
+		InputsManager inputManager = new InputsManager(renderer.getGraphicPane(), gamemode);
 		
 		
 		

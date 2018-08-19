@@ -7,8 +7,8 @@ public class PvP extends GameLogic{
 
 	@Override
 	public void casePressed(Jeton jeton) throws GameLogicException {
-		// TODO Auto-generated method stub
-		
+
+
 	}
 
 }
