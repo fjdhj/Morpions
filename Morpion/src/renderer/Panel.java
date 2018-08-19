@@ -35,16 +35,12 @@ public class Panel extends JPanel {
 		
 	}
 	
-	private void sizeUpdt() {
-
-	
-	}
 
 	private void drawCenteredCross(Graphics g, int x, int y) {
 		
 	}
 	
-	private void drawCenteredCircle(Graphics g) {
+	private void drawCenteredCircle(Graphics g, int x, int y) {
 		
 	}
 }

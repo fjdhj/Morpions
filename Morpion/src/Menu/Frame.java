@@ -50,7 +50,7 @@ public class Frame extends JFrame{
 		
 		this.setVisible(true);
 		
-		renderer = new MasterRenderer(this);
+	// test pour passer du JPanel de menu, au JPanel de rendu	renderer = new MasterRenderer(this);
 		
 	}
 	
