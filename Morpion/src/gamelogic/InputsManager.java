@@ -46,10 +46,10 @@ public class InputsManager {
 		    	  }
 		    	  
 		    	  try {
-					Gamemode.casePressed(new Croix(CaseX,CaseY));
+					Gamemode.casePressed(CaseX,CaseY);
 					Gamemode.screenUpdt();
 				} catch (GameLogicException e1) {
-					e1.printStackTrace();
+					System.out.println("Action interdite");
 				}
 		    	  
 		      }
