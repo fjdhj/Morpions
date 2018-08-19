@@ -1,9 +1,11 @@
-package gamelogic;
-//Classe en test => regles en PvP
+package ia;
+//Classe en test => regles en PvIA
 
+import gamelogic.GameLogic;
+import gamelogic.GameLogicException;
 import objects.Jeton;
 
-public class PvP extends GameLogic{
+public class PvIA extends GameLogic{
 
 	@Override
 	public void casePressed(Jeton jeton) throws GameLogicException {
