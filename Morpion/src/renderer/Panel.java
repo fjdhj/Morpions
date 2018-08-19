@@ -15,6 +15,9 @@ public class Panel extends JPanel {
 		height = this.getHeight();
 		width = this.getWidth();
 		
+		int caseHeight = height/3;
+		int caseWidth = width/3;
+		
 		int[] START_BACK_LINES ={1*height/3 , 2*height/3 , 3*height/3,
 				1*width/3 ,		
 				2*width/3 ,	
@@ -32,15 +35,20 @@ public class Panel extends JPanel {
 			g.drawLine(0, START_BACK_LINES[i], width, START_BACK_LINES[i]);
 			}
 		}
-		
+		drawCenteredCross(g,caseWidth/2 , caseHeight/2,caseHeight,caseWidth);
+		drawCenteredCircle(g, 3*caseWidth/2,3*caseHeight/2, 40);
 	}
 	
 
-	private void drawCenteredCross(Graphics g, int x, int y) {
-		
+	private void drawCenteredCross(Graphics g, int x, int y, int caseHeight, int caseWidth) {
+		g.drawLine(x-20, y-20, x+20, y+20);
+		g.drawLine(x+20, y-20, x-20, y+20);
 	}
 	
-	private void drawCenteredCircle(Graphics g, int x, int y) {
+	private void drawCenteredCircle(Graphics g, int x, int y, int r) {
+		x = x-(r/2);
+		y = y-(r/2);
+		g.drawOval(x,y,r,r);
 		
 	}
 }

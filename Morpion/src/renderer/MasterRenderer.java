@@ -2,6 +2,8 @@ package renderer;
 
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import objects.*;
 
 /*-----------------UTILISATION DE LA CLASSE-----------------------
@@ -27,7 +29,7 @@ public class MasterRenderer {
 	
 	public MasterRenderer(JFrame Display) {
 		this.Display = Display;
-		this.Display.setContentPane(ContentPane);
+		activateRenderPane();
 	}
 	
 	public MasterRenderer(String name, int height, int width) {
@@ -40,11 +42,19 @@ public class MasterRenderer {
 		}else {throw new DisplayException("L'affiche n'a pas été initalisé correctement.");}
 	}
 	
+	public void activateRenderPane() {
+		this.Display.setContentPane(ContentPane);
+	}	
+	
+	public void disableRenderPane(JPanel ContentPane) {
+		this.Display.setContentPane(ContentPane);
+	}
+	
 	//Méthode de d'initialisation
 	public void init(String name, int height, int width) {
 		Init =true;
 		Display = new JFrame(name);
-		Display.setContentPane(ContentPane);
+		activateRenderPane();
 		Display.setSize(height, width);
 		Display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Display.setLocationRelativeTo(null);

@@ -50,8 +50,14 @@ public class Frame extends JFrame{
 		
 		this.setVisible(true);
 		
-	// test pour passer du JPanel de menu, au JPanel de rendu	renderer = new MasterRenderer(this);
+	/* test pour passer du JPanel de menu, au JPanel de rendu	renderer = new MasterRenderer(this);
 		
+		Ensuite: activateRenderPane() pour afficher le panel de rendu
+				 disableRenderPane(JPanel) pour afficher le panel spécifié
+		
+		Sinon il est possible (et plus sur) de créer une nouvelle fenetre pour le rendu de jeu -> voir MastereRenderer
+		
+		*/
 	}
 	
 	public class Listener implements ActionListener {
