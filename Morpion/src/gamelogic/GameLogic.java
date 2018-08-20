@@ -50,36 +50,59 @@ public abstract class GameLogic {
 				downLine[x-1] = conertTypeInInt(jeton);
 			}
 		}
-		System.out.println("[LOGS]Checking lines");
 		//on cherche dans les ligne
-		int i = checkHorizontalnAlignement(upLine);
+		System.out.println("[LOGS]Checking lines");
+		int i = checkHorizontaAlignement(upLine);
 		if(i!=VOID_ID) {
 			System.out.println("[LOGS]Victory!");
 			return i;
 		}
-		i = checkHorizontalnAlignement(middleLine);
+		i = checkHorizontaAlignement(middleLine);
 		if(i!=VOID_ID) {
 			System.out.println("[LOGS]Victory!");
 			return i;
 		}
-		i = checkHorizontalnAlignement(downLine);
+		i = checkHorizontaAlignement(downLine);
 		if(i!=VOID_ID) {
 			System.out.println("[LOGS]Victory!");
 			return i;
 		}
 		
 		
+		//on cherche dans les colonnes
+		i = checkVerticalAlignement(upLine, middleLine, downLine);
+		if(i!=VOID_ID) {
+			System.out.println("[LOGS]Victory!");
+			return i;
+		}
+		
+		
+		return i;
+	}
+	
+	private int checkVerticalAlignement(int[] upLine,int[] middleLine,int[] downLine) {
+		
+		for(int i=0;i<upLine.length;i++) {
+			int value = alignementCalculator(upLine[i] ,middleLine[i] ,downLine[i]);
+		if(value!=VOID_ID) {
+			return value;
+		}
+		}
 		return VOID_ID;
 	}
-
-	private int checkHorizontalnAlignement(int[] Line) {
-		if(Line[0]+Line[1]+Line[2] == 3) {
+	
+	private int alignementCalculator(int a, int b, int c) {
+		if(a+b+c == 3) {
 			return ROND_ID;
 		}
-		if(Line[0]+Line[1]+Line[2] == -3) {
+		if(a+b+c == -3) {
 			return CROIX_ID;
 		}
 		return 0;
+	}
+
+	private int checkHorizontaAlignement(int[] Line) {
+		return alignementCalculator(Line[0], Line[1], Line[2]);
 	}
 	
 	private int conertTypeInInt(Jeton jeton) {
