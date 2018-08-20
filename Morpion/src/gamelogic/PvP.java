@@ -15,7 +15,10 @@ public class PvP extends GameLogic{
 				throw new GameLogicException("Case déjà occupée");
 			}
 		}
-		JetonsList.add(calculateTurn(X, Y, ID));
+		Jeton play = calculateTurn(X, Y, ID);
+		JetonsList.add(play);		
+		screenUpdt();
+		calculateVictory(play);
 	}
 	protected Jeton calculateTurn(int X, int Y, int ID) throws GameLogicException {
 		// ici l'ID de l'ia sert à inverser les formes dessinées.
