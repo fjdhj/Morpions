@@ -1,8 +1,11 @@
 package renderer;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JPanel;
 
@@ -14,7 +17,8 @@ public class Panel extends JPanel {
 	
 	private int height;
 	private int width;
-	private ArrayList<Jeton> RenderList = new ArrayList();
+	private ArrayList<Jeton> RenderList = new ArrayList<Jeton>();
+	private String stringToRender;
 
 	public void paintComponent(Graphics g){
 		height = this.getHeight();
@@ -44,13 +48,22 @@ public class Panel extends JPanel {
 
 		for(Jeton jeton: RenderList) {
 			if(jeton instanceof Rond) {
+				g.setColor(jeton.getCouleur());
 				drawCenteredCircle(g,caseWidth* jeton.getX() - caseWidth/2 , caseHeight* jeton.getY() - caseHeight/2,40);
+				g.setColor(Color.black);
 			}
 			if(jeton instanceof Croix) {
+				g.setColor(jeton.getCouleur());
 				drawCenteredCross(g,caseWidth* jeton.getX() - caseWidth/2 , caseHeight* jeton.getY() - caseHeight/2,caseHeight,caseWidth);
+				g.setColor(Color.black);
 			}
 		}
 		
+		// on fait le rendu d'un texte si il y en a
+		if(stringToRender != null) {
+			g.setFont(new Font("Impact", Font.ITALIC, 20));
+			g.drawString(stringToRender, width/2-stringToRender.length()*4, height/2);
+		}
 	}
 	
 
@@ -65,8 +78,25 @@ public class Panel extends JPanel {
 		g.drawOval(x,y,r,r);
 		
 	}
-
-
+	
+	public void printTextOnScreen(String text, long timeOnScreen) {
+		
+		Timer timer = new Timer();
+        timer.schedule (new TimerTask() {
+            public void run()
+            {clearTextOnScreen();}
+        },timeOnScreen);
+    
+		
+        stringToRender = text;
+		this.repaint();
+	}
+	
+	private void clearTextOnScreen() {
+		stringToRender = "";
+		this.repaint();
+	}
+	
 	public void prepare(ArrayList<Jeton> objectsToRenderList) {
 		RenderList = objectsToRenderList;
 	}

@@ -40,6 +40,10 @@ public class MasterRenderer {
 		this.Display.validate();
 	}	
 	
+	public static void renderText(String text, long timeOnScreen) {
+		ContentPane.printTextOnScreen(text, timeOnScreen);
+	}
+	
 	//Méthode de rendu
 	public static void render(ArrayList<Jeton> ObjectsToRenderList){
 		ContentPane.prepare(ObjectsToRenderList);

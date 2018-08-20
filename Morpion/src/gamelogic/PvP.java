@@ -1,21 +1,23 @@
 package gamelogic;
 //Classe en test => regles en PvP
 
+import java.awt.Color;
+
 import objects.Croix;
 import objects.Jeton;
 import objects.Rond;
+import renderer.MasterRenderer;
 
 public class PvP extends GameLogic{
 	
 	@Override
-	public void casePressed(int X, int Y,int ID) throws GameLogicException {
-		Jeton play = calculateTurn(X, Y, ID);
-		
+	public void casePressed(int X, int Y,int ID) throws GameLogicException {		
 		for(Jeton jetonTest: JetonsList) {
 			if(jetonTest.getX() == X &&  jetonTest.getY() == Y) {
 				throw new GameLogicException("Case déjà occupée");
 			}
 		}
+		Jeton play = calculateTurn(X, Y, ID);
 		JetonsList.add(play);		
 		screenUpdt();
 
@@ -23,6 +25,7 @@ public class PvP extends GameLogic{
 		if(winner!=0) {
 			System.out.println(winner + ": a gagné");
 			winnerID = winner;
+			MasterRenderer.renderText(winnerID + ": a gagné!!", 2000);
 		}
 	}
 	protected Jeton calculateTurn(int X, int Y, int ID) throws GameLogicException {
@@ -32,10 +35,10 @@ public class PvP extends GameLogic{
 		
 		if(IDTurn==ROND_ID) {
 			IDTurn = CROIX_ID;
-			return new Rond(X,Y);
+			return new Rond(X,Y,Color.red);
 		}else {
 			IDTurn = ROND_ID;
-			return new Croix(X,Y);
+			return new Croix(X,Y,Color.blue);
 		}
 }
 }
