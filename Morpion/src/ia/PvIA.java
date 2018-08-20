@@ -17,17 +17,24 @@ public class PvIA extends GameLogic{
 				throw new GameLogicException("Case déjà occupée");
 			}
 		}
-		JetonsList.add(calculateTurn(X, Y, ID));
+		Jeton play = calculateTurn(X, Y, ID);
+		JetonsList.add(play);
+		screenUpdt();
+		
+		int winner = calculateVictory(play);
+		if(winner!=0) {
+			System.out.println(winner + ": a gagné");
+		}
 	}
 
 	protected Jeton calculateTurn(int X, int Y, int ID) throws GameLogicException {
 		if(ID!=IDTurn) {throw new GameLogicException("Ce n'est pas votre tour.");}
 		
-		if(ID==HUMAN_ID) {
-			IDTurn = IA_ID;
+		if(ID==ROND_ID) {
+			IDTurn = CROIX_ID;
 			return new Rond(X,Y);
 		}else {
-			IDTurn = HUMAN_ID;
+			IDTurn = ROND_ID;
 			return new Croix(X,Y);
 		}
 }

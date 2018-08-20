@@ -47,7 +47,6 @@ public class InputsManager {
 		    	  
 		    	  try {
 					Gamemode.casePressed(CaseX,CaseY, PLAYER_ID);
-					Gamemode.screenUpdt();
 				} catch (GameLogicException e1) {
 					System.out.println("Action interdite");
 				}
