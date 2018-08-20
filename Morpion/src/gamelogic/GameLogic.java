@@ -77,6 +77,18 @@ public abstract class GameLogic {
 		}
 		
 		
+		//on vérifie les 2 diagonales
+		i = alignementCalculator(upLine[0], middleLine[1], downLine[2]);
+		if(i!=VOID_ID) {
+			System.out.println("[LOGS]Victory!");
+			return i;
+		}
+		i = alignementCalculator(upLine[2], middleLine[1], downLine[0]);
+		if(i!=VOID_ID) {
+			System.out.println("[LOGS]Victory!");
+			return i;
+		}
+		
 		return i;
 	}
 	
