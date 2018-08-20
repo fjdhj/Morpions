@@ -9,14 +9,16 @@ import renderer.MasterRenderer;
 
 public abstract class GameLogic {
 	
-	public static final int IA_ID = -1;
-	public static final int HUMAN_ID = 1;
+	public static final int CROIX_ID = -1;
+	public static final int ROND_ID = 1;
+	public static final int VOID_ID = 0;
 	
 	protected ArrayList<Jeton> JetonsList = new ArrayList<Jeton>();
-	protected int IDTurn;
+	protected static int IDTurn;
+	protected static int winnerID = VOID_ID;
 	
 	public GameLogic() {
-		IDTurn = HUMAN_ID;
+		IDTurn = ROND_ID;
 	}
 	
 	
@@ -51,40 +53,40 @@ public abstract class GameLogic {
 		System.out.println("[LOGS]Checking lines");
 		//on cherche dans les ligne
 		int i = checkHorizontalnAlignement(upLine);
-		if(i!=0) {
+		if(i!=VOID_ID) {
 			System.out.println("[LOGS]Victory!");
 			return i;
 		}
 		i = checkHorizontalnAlignement(middleLine);
-		if(i!=0) {
+		if(i!=VOID_ID) {
 			System.out.println("[LOGS]Victory!");
 			return i;
 		}
 		i = checkHorizontalnAlignement(downLine);
-		if(i!=0) {
+		if(i!=VOID_ID) {
 			System.out.println("[LOGS]Victory!");
 			return i;
 		}
 		
 		
-		return 0;
+		return VOID_ID;
 	}
 
 	private int checkHorizontalnAlignement(int[] Line) {
 		if(Line[0]+Line[1]+Line[2] == 3) {
-			return 1;
+			return ROND_ID;
 		}
 		if(Line[0]+Line[1]+Line[2] == -3) {
-			return -1;
+			return CROIX_ID;
 		}
 		return 0;
 	}
 	
 	private int conertTypeInInt(Jeton jeton) {
 		if(jeton instanceof Rond) {
-			return 1;
+			return ROND_ID;
 		}else {
-			return -1;
+			return CROIX_ID;
 		}
 		
 	}	

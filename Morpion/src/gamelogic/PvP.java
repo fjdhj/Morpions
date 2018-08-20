@@ -9,24 +9,32 @@ public class PvP extends GameLogic{
 	
 	@Override
 	public void casePressed(int X, int Y,int ID) throws GameLogicException {
+		Jeton play = calculateTurn(X, Y, ID);
 		
 		for(Jeton jetonTest: JetonsList) {
 			if(jetonTest.getX() == X &&  jetonTest.getY() == Y) {
 				throw new GameLogicException("Case déjà occupée");
 			}
 		}
-		Jeton play = calculateTurn(X, Y, ID);
 		JetonsList.add(play);		
 		screenUpdt();
-		calculateVictory(play);
+
+		int winner = calculateVictory(play);
+		if(winner!=0) {
+			System.out.println(winner + ": a gagné");
+			winnerID = winner;
+		}
 	}
 	protected Jeton calculateTurn(int X, int Y, int ID) throws GameLogicException {
-		// ici l'ID de l'ia sert à inverser les formes dessinées.
-		if(IDTurn==HUMAN_ID) {
-			IDTurn = IA_ID;
+		if(winnerID!=VOID_ID) {
+			throw new GameLogicException("Partie terminée");
+		}
+		
+		if(IDTurn==ROND_ID) {
+			IDTurn = CROIX_ID;
 			return new Rond(X,Y);
 		}else {
-			IDTurn = HUMAN_ID;
+			IDTurn = ROND_ID;
 			return new Croix(X,Y);
 		}
 }

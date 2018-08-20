@@ -30,11 +30,11 @@ public class PvIA extends GameLogic{
 	protected Jeton calculateTurn(int X, int Y, int ID) throws GameLogicException {
 		if(ID!=IDTurn) {throw new GameLogicException("Ce n'est pas votre tour.");}
 		
-		if(ID==HUMAN_ID) {
-			IDTurn = IA_ID;
+		if(ID==ROND_ID) {
+			IDTurn = CROIX_ID;
 			return new Rond(X,Y);
 		}else {
-			IDTurn = HUMAN_ID;
+			IDTurn = ROND_ID;
 			return new Croix(X,Y);
 		}
 }
