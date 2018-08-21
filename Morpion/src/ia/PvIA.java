@@ -12,10 +12,10 @@ public class PvIA extends GameLogic{
 
 	@Override
 	public void casePressed(int X, int Y,int ID) throws GameLogicException {
-		
+		isGameFinished();
 		for(Jeton jetonTest: JetonsList) {
 			if(jetonTest.getX() == X &&  jetonTest.getY() == Y) {
-				throw new GameLogicException("Case dÈj‡ occupÈe");
+				throw new GameLogicException("Case d√©j√† occup√©e");
 			}
 		}
 		Jeton play = calculateTurn(X, Y, ID);
@@ -24,13 +24,16 @@ public class PvIA extends GameLogic{
 		
 		int winner = calculateVictory(play);
 		if(winner!=0) {
-			System.out.println(winner + ": a gagnÈ");
-			MasterRenderer.renderText(winnerID + ": a gagnÈ!!", 2000);
-		}
+			System.out.println(winner + ": a gagn√©");
+			winnerID = winner;
+			MasterRenderer.renderText("L'√©quipe "+playerIdToString(winner) + "a gagn√©!!", 2000);
+			}
 	}
 
+	
 	protected Jeton calculateTurn(int X, int Y, int ID) throws GameLogicException {
-		if(ID!=IDTurn) {throw new GameLogicException("Ce n'est pas votre tour.");}
+			if(ID!=IDTurn) {throw new GameLogicException("Ce n'est pas votre tour.");}
+		
 		
 		if(ID==ROND_ID) {
 			IDTurn = CROIX_ID;

@@ -79,21 +79,14 @@ public class Panel extends JPanel {
 		
 	}
 	
-	public void printTextOnScreen(String text, long timeOnScreen) {
-		//Un timeOnScreen à 0 fait que le message reste jusqu'au prochain changement de message
-		if(timeOnScreen != 0) {
-		Timer timer = new Timer();
-        timer.schedule (new TimerTask() {
-            public void run()
-            {clearTextOnScreen();}
-        },timeOnScreen);
-		}
-		
+	public void printTextOnScreen(String text) {
         stringToRender = text;
 		this.repaint();
-	}
+		}
+        
 	
-	private void clearTextOnScreen() {
+	
+	public void clearTextOnScreen() {
 		stringToRender = "";
 		this.repaint();
 	}
