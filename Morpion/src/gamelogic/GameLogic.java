@@ -36,7 +36,7 @@ public abstract class GameLogic {
 		if(winnerID!=VOID_ID) {
 			throw new GameLogicException("Partie terminée", 0);
 		}		
-    
+	}
   public ArrayList<Jeton> getJetonList(){
 		return JetonsList;	
 	
