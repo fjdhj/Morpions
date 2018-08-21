@@ -6,6 +6,7 @@ import gamelogic.GameLogicException;
 import objects.Croix;
 import objects.Jeton;
 import objects.Rond;
+import renderer.MasterRenderer;
 
 public class PvIA extends GameLogic{
 
@@ -24,6 +25,7 @@ public class PvIA extends GameLogic{
 		int winner = calculateVictory(play);
 		if(winner!=0) {
 			System.out.println(winner + ": a gagné");
+			MasterRenderer.renderText(winnerID + ": a gagné!!", 2000);
 		}
 	}
 

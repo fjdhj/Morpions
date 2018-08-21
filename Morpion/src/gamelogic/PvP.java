@@ -25,7 +25,7 @@ public class PvP extends GameLogic{
 		if(winner!=0) {
 			System.out.println(winner + ": a gagné");
 			winnerID = winner;
-			MasterRenderer.renderText(winnerID + ": a gagné!!", 2000);
+			MasterRenderer.renderText(winnerID + ": a gagné!!", 0);
 		}
 	}
 	protected Jeton calculateTurn(int X, int Y, int ID) throws GameLogicException {

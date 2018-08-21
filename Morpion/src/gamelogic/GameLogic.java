@@ -21,6 +21,9 @@ public abstract class GameLogic {
 		IDTurn = ROND_ID;
 	}
 	
+	public ArrayList<Jeton> getJetonList(){
+		return JetonsList;
+	}
 	
 	public abstract void casePressed(int X, int Y,int ID) throws GameLogicException;
 		
