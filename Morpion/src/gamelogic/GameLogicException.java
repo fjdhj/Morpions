@@ -1,5 +1,7 @@
 package gamelogic;
 
+import renderer.MasterRenderer;
+
 public class GameLogicException extends Exception{
 	//en cas de case déja prise par exemple
 	public GameLogicException() {
@@ -7,6 +9,6 @@ public class GameLogicException extends Exception{
 	}
 	
 	public GameLogicException(String str) {
-		System.out.println(str);
+		MasterRenderer.renderText(str, 1000);
 	}
 }

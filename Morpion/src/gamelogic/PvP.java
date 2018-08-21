@@ -11,7 +11,8 @@ import renderer.MasterRenderer;
 public class PvP extends GameLogic{
 	
 	@Override
-	public void casePressed(int X, int Y,int ID) throws GameLogicException {		
+	public void casePressed(int X, int Y,int ID) throws GameLogicException {	
+		isGameFinished();
 		for(Jeton jetonTest: JetonsList) {
 			if(jetonTest.getX() == X &&  jetonTest.getY() == Y) {
 				throw new GameLogicException("Case déjà occupée");
@@ -25,13 +26,12 @@ public class PvP extends GameLogic{
 		if(winner!=0) {
 			System.out.println(winner + ": a gagné");
 			winnerID = winner;
-			MasterRenderer.renderText(winnerID + ": a gagné!!", 2000);
+			MasterRenderer.renderText("L'équipe "+playerIdToString(winner) + "a gagné!!", 2000);
 		}
 	}
+	
 	protected Jeton calculateTurn(int X, int Y, int ID) throws GameLogicException {
-		if(winnerID!=VOID_ID) {
-			throw new GameLogicException("Partie terminée");
-		}
+		
 		
 		if(IDTurn==ROND_ID) {
 			IDTurn = CROIX_ID;

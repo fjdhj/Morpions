@@ -13,6 +13,9 @@ public abstract class GameLogic {
 	public static final int ROND_ID = 1;
 	public static final int VOID_ID = 0;
 	
+	public static final String CROIX_STR = "CROIX";
+	public static final String ROND_STR = "ROND";
+	
 	protected ArrayList<Jeton> JetonsList = new ArrayList<Jeton>();
 	protected static int IDTurn;
 	protected static int winnerID = VOID_ID;
@@ -20,7 +23,20 @@ public abstract class GameLogic {
 	public GameLogic() {
 		IDTurn = ROND_ID;
 	}
-	
+
+	protected String playerIdToString(int winner) {
+		if(winner == CROIX_ID) {
+			return ROND_STR;
+		}else {
+			return ROND_STR;
+		}
+	}
+
+	protected void isGameFinished() throws GameLogicException {
+		if(winnerID!=VOID_ID) {
+			throw new GameLogicException("Partie terminée");
+		}		
+	}
 	
 	public abstract void casePressed(int X, int Y,int ID) throws GameLogicException;
 		
