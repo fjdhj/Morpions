@@ -79,20 +79,14 @@ public class Panel extends JPanel {
 		
 	}
 	
-	public void printTextOnScreen(String text, long timeOnScreen) {
-		
-		Timer timer = new Timer();
-        timer.schedule (new TimerTask() {
-            public void run()
-            {clearTextOnScreen();}
-        },timeOnScreen);
-    
-		
+	public void printTextOnScreen(String text) {
         stringToRender = text;
 		this.repaint();
-	}
+		}
+        
 	
-	private void clearTextOnScreen() {
+	
+	public void clearTextOnScreen() {
 		stringToRender = "";
 		this.repaint();
 	}
