@@ -11,4 +11,8 @@ public class GameLogicException extends Exception{
 	public GameLogicException(String str) {
 		MasterRenderer.renderText(str, 1000);
 	}
+
+	public GameLogicException(String str, int ms) {
+		MasterRenderer.renderText(str, ms);
+	}
 }

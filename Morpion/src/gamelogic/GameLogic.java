@@ -34,7 +34,7 @@ public abstract class GameLogic {
 
 	protected void isGameFinished() throws GameLogicException {
 		if(winnerID!=VOID_ID) {
-			throw new GameLogicException("Partie terminée");
+			throw new GameLogicException("Partie terminée", 0);
 		}		
 	}
 	
