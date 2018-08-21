@@ -1,6 +1,9 @@
 package renderer;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -25,7 +28,8 @@ public class MasterRenderer {
 
 	private JFrame Display;
 	private static Panel ContentPane = new Panel();
-	private boolean Init = false;
+	private static String infiniteStringToRender;
+
 	
 	public MasterRenderer(JFrame Display) {
 		this.Display = Display;
@@ -40,9 +44,31 @@ public class MasterRenderer {
 		this.Display.validate();
 	}	
 	
-	public static void renderText(String text, long timeOnScreen) {
-		ContentPane.printTextOnScreen(text, timeOnScreen);
+	public static void clearAllTextOnScreen() {
+		infiniteStringToRender = "";
+        ContentPane.clearTextOnScreen();
 	}
+	
+	public static void renderText(String text, long timeOnScreen) {
+		
+
+		if(timeOnScreen==0) {
+			infiniteStringToRender = text;
+			ContentPane.printTextOnScreen(infiniteStringToRender);
+		}else {
+		Timer timer = new Timer();
+        timer.schedule (new TimerTask() {
+            public void run()
+            {
+            ContentPane.clearTextOnScreen();
+			ContentPane.printTextOnScreen(infiniteStringToRender);
+            
+            }
+        },timeOnScreen);
+        
+		ContentPane.printTextOnScreen(text);
+		}
+	}		
 	
 	//Méthode de rendu
 	public static void render(ArrayList<Jeton> ObjectsToRenderList){
