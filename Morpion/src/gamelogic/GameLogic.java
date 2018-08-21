@@ -34,8 +34,12 @@ public abstract class GameLogic {
 
 	protected void isGameFinished() throws GameLogicException {
 		if(winnerID!=VOID_ID) {
-			throw new GameLogicException("Partie terminée", 0);
+			throw new GameLogicException("Partie terminÃ©e", 0);
 		}		
+    
+  public ArrayList<Jeton> getJetonList(){
+		return JetonsList;	
+	
 	}
 	
 	public abstract void casePressed(int X, int Y,int ID) throws GameLogicException;
@@ -93,7 +97,7 @@ public abstract class GameLogic {
 		}
 		
 		
-		//on vérifie les 2 diagonales
+		//on vÃ©rifie les 2 diagonales
 		i = alignementCalculator(upLine[0], middleLine[1], downLine[2]);
 		if(i!=VOID_ID) {
 			System.out.println("[LOGS]Victory!");

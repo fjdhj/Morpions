@@ -15,7 +15,7 @@ public class PvIA extends GameLogic{
 		isGameFinished();
 		for(Jeton jetonTest: JetonsList) {
 			if(jetonTest.getX() == X &&  jetonTest.getY() == Y) {
-				throw new GameLogicException("Case dÈj‡ occupÈe");
+				throw new GameLogicException("Case d√©j√† occup√©e");
 			}
 		}
 		Jeton play = calculateTurn(X, Y, ID);
@@ -24,9 +24,9 @@ public class PvIA extends GameLogic{
 		
 		int winner = calculateVictory(play);
 		if(winner!=0) {
-			System.out.println(winner + ": a gagnÈ");
+			System.out.println(winner + ": a gagn√©");
 			winnerID = winner;
-			MasterRenderer.renderText("L'Èquipe "+playerIdToString(winner) + "a gagnÈ!!", 2000);
+			MasterRenderer.renderText("L'√©quipe "+playerIdToString(winner) + "a gagn√©!!", 2000);
 			}
 	}
 
