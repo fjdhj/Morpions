@@ -11,11 +11,11 @@ import renderer.MasterRenderer;
 public class PvIA extends GameLogic{
 
 	@Override
-	public void casePressed(int X, int Y,int ID) throws GameLogicException {
+	public void casePressed(int X, int Y,int ID) throws GameLogicException, OutOfBoundException {
 		isGameFinished();
 		for(Jeton jetonTest: JetonsList) {
 			if(jetonTest.getX() == X &&  jetonTest.getY() == Y) {
-				throw new GameLogicException("Case déjà occupée");
+				throw new GameLogicException("Case deja� occupee");
 			}
 		}
 		Jeton play = calculateTurn(X, Y, ID);
@@ -24,10 +24,12 @@ public class PvIA extends GameLogic{
 		
 		int winner = calculateVictory(play);
 		if(winner!=0) {
-			System.out.println(winner + ": a gagné");
+			System.out.println(winner + ": a gagne");
 			winnerID = winner;
-			MasterRenderer.renderText("L'équipe "+playerIdToString(winner) + "a gagné!!", 2000);
-			}
+			MasterRenderer.renderText("Partie terminee",0);
+			MasterRenderer.renderText("L'equipe "+playerIdToString(winner) + "a gagne!!", 2000);
+			
+		}
 	}
 
 	

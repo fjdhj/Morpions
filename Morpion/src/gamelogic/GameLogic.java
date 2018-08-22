@@ -2,6 +2,7 @@ package gamelogic;
 
 import java.util.ArrayList;
 
+import ia.OutOfBoundException;
 import objects.*;
 import renderer.MasterRenderer;
 
@@ -34,7 +35,7 @@ public abstract class GameLogic {
 
 	protected void isGameFinished() throws GameLogicException {
 		if(winnerID!=VOID_ID) {
-			throw new GameLogicException("Partie terminée", 0);
+			throw new GameLogicException("Partie terminee", 0);
 		}		
 	}
   public ArrayList<Jeton> getJetonList(){
@@ -42,7 +43,7 @@ public abstract class GameLogic {
 	
 	}
 	
-	public abstract void casePressed(int X, int Y,int ID) throws GameLogicException;
+	public abstract void casePressed(int X, int Y,int ID) throws GameLogicException, OutOfBoundException;
 		
 	
 	

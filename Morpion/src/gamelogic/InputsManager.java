@@ -1,10 +1,13 @@
 package gamelogic;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
+import ia.OutOfBoundException;
 import objects.Croix;
 
 public class InputsManager {
@@ -47,12 +50,13 @@ public class InputsManager {
 		    	  
 		    	  try {
 					Gamemode.casePressed(CaseX,CaseY, PLAYER_ID);
-				} catch (GameLogicException e1) {
+				} catch (GameLogicException | OutOfBoundException e1) {
 					System.out.println("Action interdite");
 				}
 		    	  
 		      }
 		      });
+		Panel.requestFocus();
 	}
 	
 	
