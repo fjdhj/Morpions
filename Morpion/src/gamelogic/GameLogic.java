@@ -2,6 +2,7 @@ package gamelogic;
 
 import java.util.ArrayList;
 
+import ia.OutOfBoundException;
 import objects.*;
 import renderer.MasterRenderer;
 
@@ -42,7 +43,7 @@ public abstract class GameLogic {
 	
 	}
 	
-	public abstract void casePressed(int X, int Y,int ID) throws GameLogicException;
+	public abstract void casePressed(int X, int Y,int ID) throws GameLogicException, OutOfBoundException;
 		
 	
 	

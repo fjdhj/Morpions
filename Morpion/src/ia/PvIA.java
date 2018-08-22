@@ -11,7 +11,7 @@ import renderer.MasterRenderer;
 public class PvIA extends GameLogic{
 
 	@Override
-	public void casePressed(int X, int Y,int ID) throws GameLogicException {
+	public void casePressed(int X, int Y,int ID) throws GameLogicException, OutOfBoundException {
 		isGameFinished();
 		for(Jeton jetonTest: JetonsList) {
 			if(jetonTest.getX() == X &&  jetonTest.getY() == Y) {
