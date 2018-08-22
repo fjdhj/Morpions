@@ -5,16 +5,19 @@ import renderer.MasterRenderer;
 
 public class GameLogicException extends Exception{
 
+	private String Message;
 	private int Error;
+	private int MessageDuration;
 
 	public GameLogicException() {
-		System.out.println("Un joueur a tente une action interdite.");
 		Error = ErrorID.GAME_LOGIC_EXCEPTION_ID;
 	}
 	
 	public GameLogicException(int ErrorID) {
 		MasterRenderer.renderText(IdToString(ErrorID), 1000);
+		MessageDuration = 1000;
 		Error = ErrorID;
+		Message = IdToString(ErrorID);
 	}
 
 	private String IdToString(int errorID) {
@@ -28,9 +31,19 @@ public class GameLogicException extends Exception{
 
 	public GameLogicException(int ErrorID, int ms) {
 		MasterRenderer.renderText(IdToString(ErrorID), ms);
+		MessageDuration = ms;
 		Error = ErrorID;
+		Message = IdToString(ErrorID);
 	}
 
+	public String getMessage() {
+		return Message;
+	}
+	
+	public int getMessageDuration() {
+		return MessageDuration;
+	}
+	
 	public int getErrorID() {
 		return Error;
 	}

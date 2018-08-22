@@ -9,12 +9,11 @@ public class IAcore extends Thread{
 	
 	private boolean Running;
 	private InputsManagerIA IAinputs;
-	private GameLogic gamemode;
 	private ArrayList<Jeton> JetonList;
 	
 	public IAcore(InputsManagerIA IAinputs, GameLogic gamemode) {
 		this.IAinputs = IAinputs;
-		this.gamemode = gamemode;
+		JetonList = gamemode.getJetonList();
 	}
 
 
@@ -23,6 +22,12 @@ public class IAcore extends Thread{
 	public void run() {
 		Running = true;
 		while(Running) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			IAinputs.pressACase(1, 1);
 			
 		}		
 	}

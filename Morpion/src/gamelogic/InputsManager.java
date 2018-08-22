@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import ia.OutOfBoundException;
 import objects.Croix;
+import renderer.MasterRenderer;
 
 public class InputsManager {
 	private static final int PLAYER_ID = 1;
@@ -50,9 +51,9 @@ public class InputsManager {
 		    	  
 		    	  try {
 					Gamemode.casePressed(CaseX,CaseY, PLAYER_ID);
-				} catch (GameLogicException | OutOfBoundException e1) {
-					System.out.println("Action interdite");
-				}
+				} catch (GameLogicException e1) {
+					MasterRenderer.renderText(e1.getMessage(), e1.getMessageDuration());
+				} catch (OutOfBoundException e1) {/*Impossible*/}
 		    	  
 		      }
 		      });
