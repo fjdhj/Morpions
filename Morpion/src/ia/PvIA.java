@@ -15,7 +15,7 @@ public class PvIA extends GameLogic{
 		isGameFinished();
 		for(Jeton jetonTest: JetonsList) {
 			if(jetonTest.getX() == X &&  jetonTest.getY() == Y) {
-				throw new GameLogicException("Case déjà occupée");
+				throw new GameLogicException("Case deja� occupee");
 			}
 		}
 		Jeton play = calculateTurn(X, Y, ID);
@@ -24,9 +24,9 @@ public class PvIA extends GameLogic{
 		
 		int winner = calculateVictory(play);
 		if(winner!=0) {
-			System.out.println(winner + ": a gagné");
+			System.out.println(winner + ": a gagne");
 			winnerID = winner;
-			MasterRenderer.renderText("L'équipe "+playerIdToString(winner) + "a gagné!!", 2000);
+			MasterRenderer.renderText("L'equipe "+playerIdToString(winner) + "a gagne!!", 2000);
 			}
 	}
 
