@@ -26,8 +26,10 @@ public class PvIA extends GameLogic{
 		if(winner!=0) {
 			System.out.println(winner + ": a gagne");
 			winnerID = winner;
+			MasterRenderer.renderText("Partie terminee",0);
 			MasterRenderer.renderText("L'equipe "+playerIdToString(winner) + "a gagne!!", 2000);
-			}
+			
+		}
 	}
 
 	

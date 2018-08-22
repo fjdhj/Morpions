@@ -26,6 +26,7 @@ public class PvP extends GameLogic{
 		if(winner!=0) {
 			System.out.println(winner + ": a gagne");
 			winnerID = winner;
+			MasterRenderer.renderText("Partie terminee",0);
 			MasterRenderer.renderText("L'Equipe "+playerIdToString(winner) + "a gagne!!", 2000);
 
 		}
