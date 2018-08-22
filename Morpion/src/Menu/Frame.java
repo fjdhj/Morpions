@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import gamelogic.GameLogic;
 import gamelogic.InputsManager;
 import gamelogic.PvP;
+import ia.IAcore;
+import ia.InputsManagerIA;
 import ia.PvIA;
 import objects.Croix;
 import objects.Jeton;
@@ -36,6 +38,8 @@ public class Frame extends JFrame{
 	
 	private MasterRenderer renderer;
 	private boolean PanelActive = false;
+	private InputsManager inputManager;
+	private GameLogic gamemode;
 	
 	public Frame() {
 		
@@ -81,14 +85,18 @@ public class Frame extends JFrame{
 }
 
 	private void StartPvIA() {
-		GameLogic gamemode = new PvIA();
-		InputsManager inputManager = new InputsManager(renderer.getGraphicPane(), gamemode);
-		//Ensuite lancer l'IA
-		}
+		gamemode = new PvIA();
+		inputManager = new InputsManager(renderer.getGraphicPane(), gamemode);
+		
+		InputsManagerIA IAinputs = new InputsManagerIA(gamemode);
+		IAcore IA = new IAcore(IAinputs, gamemode);
+		IA.start();
+		
+	}
 	
 	private void StartPvP() {
-		GameLogic gamemode = new PvP();
-		InputsManager inputManager = new InputsManager(renderer.getGraphicPane(), gamemode);
+		 gamemode = new PvP();
+		 inputManager = new InputsManager(renderer.getGraphicPane(), gamemode);
 		}
 	class IAListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {

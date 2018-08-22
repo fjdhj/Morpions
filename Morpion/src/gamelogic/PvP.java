@@ -3,6 +3,7 @@ package gamelogic;
 
 import java.awt.Color;
 
+import ia.ErrorID;
 import objects.Croix;
 import objects.Jeton;
 import objects.Rond;
@@ -15,7 +16,7 @@ public class PvP extends GameLogic{
 		isGameFinished();
 		for(Jeton jetonTest: JetonsList) {
 			if(jetonTest.getX() == X &&  jetonTest.getY() == Y) {
-				throw new GameLogicException("Case deja  occupee");
+				throw new GameLogicException(ErrorID.BUSY_CASE_ID);
 			}
 		}
 		Jeton play = calculateTurn(X, Y, ID);

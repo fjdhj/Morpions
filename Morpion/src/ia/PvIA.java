@@ -15,7 +15,7 @@ public class PvIA extends GameLogic{
 		isGameFinished();
 		for(Jeton jetonTest: JetonsList) {
 			if(jetonTest.getX() == X &&  jetonTest.getY() == Y) {
-				throw new GameLogicException("Case deja  occupee");
+				throw new GameLogicException(ErrorID.BUSY_CASE_ID);
 			}
 		}
 		Jeton play = calculateTurn(X, Y, ID);
@@ -34,7 +34,7 @@ public class PvIA extends GameLogic{
 
 	
 	protected Jeton calculateTurn(int X, int Y, int ID) throws GameLogicException {
-			if(ID!=IDTurn) {throw new GameLogicException("Ce n'est pas votre tour.");}
+			if(ID!=IDTurn) {throw new GameLogicException(ErrorID.NOT_YOUR_TURN_ID);}
 		
 		
 		if(ID==ROND_ID) {
