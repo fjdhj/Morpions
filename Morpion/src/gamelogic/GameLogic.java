@@ -32,7 +32,7 @@ public abstract class GameLogic {
 	
 	protected String playerIdToString(int winner) {
 		if(winner == CROIX_ID) {
-			return ROND_STR;
+			return CROIX_STR;
 		}else {
 			return ROND_STR;
 		}

@@ -31,7 +31,9 @@ public class IAcore extends Thread{
 				e.printStackTrace();
 			}
 			if(IdTurn != PLAYER_ID) {
-			IAinputs.pressACase(1, 1);
+				IAinputs.pressACase(1, 1);
+				IAinputs.pressACase(2, 1);
+				IAinputs.pressACase(3, 1);
 			}
 		}		
 	}
