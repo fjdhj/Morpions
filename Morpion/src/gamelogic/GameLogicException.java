@@ -14,7 +14,6 @@ public class GameLogicException extends Exception{
 	}
 	
 	public GameLogicException(int ErrorID) {
-		MasterRenderer.renderText(IdToString(ErrorID), 1000);
 		MessageDuration = 1000;
 		Error = ErrorID;
 		Message = IdToString(ErrorID);
@@ -30,7 +29,6 @@ public class GameLogicException extends Exception{
 	}
 
 	public GameLogicException(int ErrorID, int ms) {
-		MasterRenderer.renderText(IdToString(ErrorID), ms);
 		MessageDuration = ms;
 		Error = ErrorID;
 		Message = IdToString(ErrorID);
