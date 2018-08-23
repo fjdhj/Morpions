@@ -4,7 +4,7 @@ import gamelogic.GameLogic;
 import gamelogic.GameLogicException;
 
 public class InputsManagerIA {
-	private static final int PLAYER_ID = -1;
+	public static final int PLAYER_ID = -1;
 	private GameLogic Gamemode;
 	
 	public InputsManagerIA(GameLogic Gamemode) {

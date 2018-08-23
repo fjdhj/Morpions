@@ -26,6 +26,10 @@ public abstract class GameLogic {
 		IDTurn = ROND_ID;
 	}
 
+	public int getIdTurn() {
+		return IDTurn;
+	}
+	
 	protected String playerIdToString(int winner) {
 		if(winner == CROIX_ID) {
 			return ROND_STR;

@@ -10,10 +10,13 @@ public class IAcore extends Thread{
 	private boolean Running;
 	private InputsManagerIA IAinputs;
 	private ArrayList<Jeton> JetonList;
+	private int PLAYER_ID = InputsManagerIA.PLAYER_ID;
+	private int IdTurn;
 	
 	public IAcore(InputsManagerIA IAinputs, GameLogic gamemode) {
 		this.IAinputs = IAinputs;
 		JetonList = gamemode.getJetonList();
+		IdTurn = gamemode.getIdTurn();
 	}
 
 
@@ -27,8 +30,9 @@ public class IAcore extends Thread{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			if(IdTurn != PLAYER_ID) {
 			IAinputs.pressACase(1, 1);
-			
+			}
 		}		
 	}
 
