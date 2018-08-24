@@ -115,7 +115,7 @@ public class Frame extends JFrame{
 	
 	private void StartPvP() {
 		 gamemode = new PvP();
-		 inputManager = new InputsManager(renderer.getGraphicPane(), gamemode);
+		 inputManager = new InputsManager(renderer.getGraphicPane(), gamemode, PLAYER_ROND_ID);
 		}
 	class IAvIAListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
