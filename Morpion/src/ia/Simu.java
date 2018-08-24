@@ -1,6 +1,9 @@
 package ia;
 
 public class Simu {
+	
+	private static int seriesJ, seriesIA;
+	
 
 	public static int Min(int[][] gameState, int profondeur) { //SIMULATION DES POSSIBILITE DE JOUEUR
 		
@@ -51,6 +54,43 @@ public class Simu {
 		}
 		
 		return(0);
+	}
+	
+	
+	/*
+	 * Methode qui évalue l'état de la partie en simulation
+	 */
+	
+	public static int eval(int gameState[][]) {
+		
+		int winer, nbr_pions;
+		int x, y;
+		
+		
+		for(y = 0; y < 3; y++) {
+			for(x = 0; x < 3; x++) {
+				
+				if(gameState[x][y] != 0) {
+					
+					nbr_pions++;
+				}
+			}
+		}
+		
+		
+		return(0);
+	}
+	
+	
+	
+	public static void setSeriesJ(int series) {
+		seriesJ = series;
+		
+	}
+	
+	public static void setSeriesIA(int series) {
+		seriesIA = series;
+		
 	}
 
 }
