@@ -15,6 +15,7 @@ public class IAcore extends Thread{
 	private int IdTurn;
 	private int gameState[][];
 	private GameLogic gamemode;
+
 	
 	public IAcore(InputsManagerIA IAinputs, GameLogic gamemode, int playerCroixId) {
 		this.IAinputs = IAinputs;
@@ -27,9 +28,10 @@ public class IAcore extends Thread{
 	private void getTurn() {
 		IdTurn = gamemode.getIdTurn();
 	}
+
 	/*
-	 * Joueur : rond ROUGE (joueur n°2)
-	 * IA : croix BLEU (joueur n°1)
+	 * Joueur : rond ROUGE (joueur nÂ°2)
+	 * IA : croix BLEU (joueur nÂ°1)
 	 * 
 	 */
 
@@ -38,16 +40,22 @@ public class IAcore extends Thread{
 	public void run() {
 		Running = true;
 		while(Running) {
-			//pour actualiser la variable idTurn, doit etre executé dans la boucle avant tout traitement
+			//pour actualiser la variable idTurn, doit etre executÃ© dans la boucle avant tout traitement
 			getTurn();
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if(IdTurn == PLAYER_ID) {
+
+      if(IdTurn == PLAYER_ID) {
+
 				
 				int gameState[][] = { {0, 0, 0}, {0, 0, 0}, {0, 0, 0} };
+				int max = -1000;
+				int sim, maxX, maxY;
+				int profondeur = 3;
+				
 				
 				for(Jeton jeton:JetonList) {
 					int x = jeton.getX();
@@ -67,7 +75,16 @@ public class IAcore extends Thread{
 				}
 				
 				for(int y = 0; y < 3; y++) {
-					for(int i = 0; i < 3; i++) {
+					for(int x = 0; x < 3; x++) {
+						
+						if(gameState[x][y] == 0) { //Si la case est vide
+							
+							gameState[x][y] = 1; //On simul le pion
+							
+							sim = Simu.Min(gameState, profondeur-1); // On simul ce que pourait joueur le joueur
+							
+							
+						}
 						
 					}
 				}
