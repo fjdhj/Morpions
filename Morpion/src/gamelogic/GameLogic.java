@@ -48,8 +48,26 @@ public abstract class GameLogic {
 	
 	}
 	
-	public abstract void casePressed(int X, int Y,int ID) throws GameLogicException, OutOfBoundException;
-		
+	public void casePressed(int X, int Y,int ID) throws GameLogicException, OutOfBoundException{	
+		isGameFinished();
+		for(Jeton jetonTest: JetonsList) {
+			if(jetonTest.getX() == X &&  jetonTest.getY() == Y) {
+				throw new GameLogicException(ErrorID.BUSY_CASE_ID);
+			}
+		}
+		Jeton play = calculateTurn(X, Y, ID);
+		JetonsList.add(play);		
+		screenUpdt();
+
+		int winner = calculateVictory(play);
+		if(winner!=0) {
+			System.out.println(winner + ": a gagne");
+			winnerID = winner;
+			MasterRenderer.renderText("Partie terminee",0);
+			MasterRenderer.renderText("L'Equipe "+playerIdToString(winner) + "a gagne!!", 2000);
+
+		}
+	}		
 	
 	
 	protected void screenUpdt() {
