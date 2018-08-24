@@ -11,19 +11,27 @@ public class IAcore extends Thread{
 	private boolean Running;
 	private InputsManagerIA IAinputs;
 	private ArrayList<Jeton> JetonList;
-	private int PLAYER_ID = InputsManagerIA.PLAYER_ID;
+	private int PLAYER_ID;
 	private int IdTurn;
 	private int gameState[][];
+	private GameLogic gamemode;
+
 	
-	public IAcore(InputsManagerIA IAinputs, GameLogic gamemode) {
+	public IAcore(InputsManagerIA IAinputs, GameLogic gamemode, int playerCroixId) {
 		this.IAinputs = IAinputs;
 		JetonList = gamemode.getJetonList();
+		this.gamemode = gamemode;
+		IdTurn = gamemode.getIdTurn();
+		this.PLAYER_ID = playerCroixId;
+	}
+	
+	private void getTurn() {
 		IdTurn = gamemode.getIdTurn();
 	}
 
 	/*
-	 * Joueur : rond ROUGE (joueur n°2)
-	 * IA : croix BLEU (joueur n°1)
+	 * Joueur : rond ROUGE (joueur nÂ°2)
+	 * IA : croix BLEU (joueur nÂ°1)
 	 * 
 	 */
 
@@ -32,12 +40,16 @@ public class IAcore extends Thread{
 	public void run() {
 		Running = true;
 		while(Running) {
+			//pour actualiser la variable idTurn, doit etre executÃ© dans la boucle avant tout traitement
+			getTurn();
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if(IdTurn != PLAYER_ID) {
+
+      if(IdTurn == PLAYER_ID) {
+
 				
 				int gameState[][] = { {0, 0, 0}, {0, 0, 0}, {0, 0, 0} };
 				int max = -1000;

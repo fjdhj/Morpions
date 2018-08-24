@@ -4,11 +4,12 @@ import gamelogic.GameLogic;
 import gamelogic.GameLogicException;
 
 public class InputsManagerIA {
-	public static final int PLAYER_ID = -1;
+	public int PLAYER_ID ;
 	private GameLogic Gamemode;
 	
-	public InputsManagerIA(GameLogic Gamemode) {
+	public InputsManagerIA(GameLogic Gamemode,int PLAYER_ID) {
 		this.Gamemode = Gamemode;
+		this.PLAYER_ID = PLAYER_ID;
 	}
 
 		public int pressACase(int CaseX, int CaseY) {
