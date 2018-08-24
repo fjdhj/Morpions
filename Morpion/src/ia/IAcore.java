@@ -40,6 +40,10 @@ public class IAcore extends Thread{
 			if(IdTurn != PLAYER_ID) {
 				
 				int gameState[][] = { {0, 0, 0}, {0, 0, 0}, {0, 0, 0} };
+				int max = -1000;
+				int sim, maxX, maxY;
+				int profondeur = 3;
+				
 				
 				for(Jeton jeton:JetonList) {
 					int x = jeton.getX();
@@ -59,7 +63,16 @@ public class IAcore extends Thread{
 				}
 				
 				for(int y = 0; y < 3; y++) {
-					for(int i = 0; i < 3; i++) {
+					for(int x = 0; x < 3; x++) {
+						
+						if(gameState[x][y] == 0) { //Si la case est vide
+							
+							gameState[x][y] = 1; //On simul le pion
+							
+							sim = Simu.Min(gameState, profondeur-1); // On simul ce que pourait joueur le joueur
+							
+							
+						}
 						
 					}
 				}
