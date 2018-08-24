@@ -12,9 +12,8 @@ import objects.Croix;
 import renderer.MasterRenderer;
 
 public class InputsManager {
-	private static final int PLAYER_ID = 1;
 	
-	public InputsManager(JPanel Panel, GameLogic Gamemode) {
+	public InputsManager(JPanel Panel, GameLogic Gamemode, int PLAYER_ID) {
 		Panel.addMouseListener(new MouseAdapter(){
 		      public void mousePressed(MouseEvent e){
 

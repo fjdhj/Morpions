@@ -13,6 +13,7 @@ import renderer.MasterRenderer;
 public class PvIA extends GameLogic{
 
 	protected Jeton calculateTurn(int X, int Y, int ID) throws GameLogicException {
+
 			if(ID!=IDTurn) {throw new GameLogicException(ErrorID.NOT_YOUR_TURN_ID);}
 		
 		
