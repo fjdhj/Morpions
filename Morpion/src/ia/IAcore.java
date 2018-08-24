@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import gamelogic.GameLogic;
-import objects.Jeton;
+import objects.*;
 
 public class IAcore extends Thread{
 	
@@ -46,10 +46,10 @@ public class IAcore extends Thread{
 					int y = jeton.getY();
 					Color color = jeton.getCouleur();
 					
-					if(color.getRed() == 255) { //Si pion joueur
+					if(jeton instanceof Rond) { //Si pion joueur (rond)
 						gameState[x-1][y-1] = 2;
 						
-					}else { //Si pion IA
+					}else { //Si pion IA (croix)
 						gameState[x-1][y-1] = 1;
 						
 					}
