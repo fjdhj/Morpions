@@ -9,7 +9,7 @@ public class InputsManagerIA {
 	
 	public InputsManagerIA(GameLogic Gamemode,int PLAYER_ID) {
 		this.Gamemode = Gamemode;
-		this.PLAYER_ID = PLAYER_ID;
+ 		this.PLAYER_ID = PLAYER_ID;
 	}
 
 		public int pressACase(int CaseX, int CaseY) {
