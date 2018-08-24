@@ -2,6 +2,7 @@ package gamelogic;
 
 import java.util.ArrayList;
 
+import ia.ErrorID;
 import ia.OutOfBoundException;
 import objects.*;
 import renderer.MasterRenderer;
@@ -25,9 +26,13 @@ public abstract class GameLogic {
 		IDTurn = ROND_ID;
 	}
 
+	public int getIdTurn() {
+		return IDTurn;
+	}
+	
 	protected String playerIdToString(int winner) {
 		if(winner == CROIX_ID) {
-			return ROND_STR;
+			return CROIX_STR;
 		}else {
 			return ROND_STR;
 		}
@@ -35,7 +40,7 @@ public abstract class GameLogic {
 
 	protected void isGameFinished() throws GameLogicException {
 		if(winnerID!=VOID_ID) {
-			throw new GameLogicException("Partie terminee", 0);
+			throw new GameLogicException(ErrorID.GAME_OVER_ID, 0);
 		}		
 	}
   public ArrayList<Jeton> getJetonList(){
@@ -43,8 +48,26 @@ public abstract class GameLogic {
 	
 	}
 	
-	public abstract void casePressed(int X, int Y,int ID) throws GameLogicException, OutOfBoundException;
-		
+	public void casePressed(int X, int Y,int ID) throws GameLogicException, OutOfBoundException{	
+		isGameFinished();
+		for(Jeton jetonTest: JetonsList) {
+			if(jetonTest.getX() == X &&  jetonTest.getY() == Y) {
+				throw new GameLogicException(ErrorID.BUSY_CASE_ID);
+			}
+		}
+		Jeton play = calculateTurn(X, Y, ID);
+		JetonsList.add(play);		
+		screenUpdt();
+
+		int winner = calculateVictory(play);
+		if(winner!=0) {
+			System.out.println(winner + ": a gagne");
+			winnerID = winner;
+			MasterRenderer.renderText("Partie terminee",0);
+			MasterRenderer.renderText("L'Equipe "+playerIdToString(winner) + "a gagne!!", 2000);
+
+		}
+	}		
 	
 	
 	protected void screenUpdt() {

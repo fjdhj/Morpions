@@ -17,6 +17,9 @@ import javax.swing.JPanel;
 import gamelogic.GameLogic;
 import gamelogic.InputsManager;
 import gamelogic.PvP;
+import ia.IAcore;
+import ia.InputsManagerIA;
+import ia.LearningIAcore;
 import ia.PvIA;
 import objects.Croix;
 import objects.Jeton;
@@ -25,10 +28,14 @@ import renderer.MasterRenderer;
 
 public class Frame extends JFrame{
 	
+	public static final int PLAYER_CROIX_ID = -1;
+	public static final int PLAYER_ROND_ID = 1;
+	
 	private static JLabel title = new JLabel("Jeu du morpion");
 	
 	private static JButton IA = new JButton("Joueur VS IA");
 	private static JButton player = new JButton("Joueur VS Joueur");
+	private static JButton IAvsIA = new JButton("IA VS IA");
 	
 	private static JPanel PANtitle = new JPanel();
 	private static JPanel PANbutton = new JPanel();
@@ -36,6 +43,8 @@ public class Frame extends JFrame{
 	
 	private MasterRenderer renderer;
 	private boolean PanelActive = false;
+	private InputsManager inputManager;
+	private GameLogic gamemode;
 	
 	public Frame() {
 		
@@ -52,10 +61,12 @@ public class Frame extends JFrame{
 		
 		IA.addActionListener(new IAListener());
 		player.addActionListener(new playerListener());
+		IAvsIA.addActionListener(new IAvIAListener());
 		
 		
 		PANbutton.add(IA);
 		PANbutton.add(player);
+		PANbutton.add(IAvsIA);
 		
 		PANglobal.add(PANtitle, BorderLayout.NORTH);
 		PANglobal.add(PANbutton, BorderLayout.CENTER);
@@ -79,17 +90,39 @@ public class Frame extends JFrame{
 		}
 
 }
+	private void StartIAvIA() {
+		gamemode = new PvIA();
+		
+		InputsManagerIA IAinputs = new InputsManagerIA(gamemode, PLAYER_ROND_ID);
+		IAcore IA = new IAcore(IAinputs, gamemode,PLAYER_ROND_ID);
+		IA.start();
+		
+		InputsManagerIA IA2inputs = new InputsManagerIA(gamemode, PLAYER_CROIX_ID);
+		LearningIAcore IA2 = new LearningIAcore(IA2inputs, gamemode,PLAYER_CROIX_ID);
+		IA2.start();
+		
+	}
 
 	private void StartPvIA() {
-		GameLogic gamemode = new PvIA();
-		InputsManager inputManager = new InputsManager(renderer.getGraphicPane(), gamemode);
-		//Ensuite lancer l'IA
-		}
+		gamemode = new PvIA();
+		inputManager = new InputsManager(renderer.getGraphicPane(), gamemode,PLAYER_ROND_ID);
+		
+		InputsManagerIA IAinputs = new InputsManagerIA(gamemode,PLAYER_CROIX_ID);
+		IAcore IA = new IAcore(IAinputs, gamemode,PLAYER_CROIX_ID);
+		IA.start();
+		
+	}
 	
 	private void StartPvP() {
-		GameLogic gamemode = new PvP();
-		InputsManager inputManager = new InputsManager(renderer.getGraphicPane(), gamemode);
+		 gamemode = new PvP();
+		 inputManager = new InputsManager(renderer.getGraphicPane(), gamemode, PLAYER_ROND_ID);
 		}
+	class IAvIAListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			switchPane();
+			StartIAvIA();
+		}
+	}
 	class IAListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			switchPane();
