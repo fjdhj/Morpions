@@ -23,7 +23,15 @@ public abstract class GameLogic {
 	protected static int winnerID = VOID_ID;
 	
 	public GameLogic() {
-		IDTurn = ROND_ID;
+		double random = Math.random()*10;
+		if(random>=5) {
+			IDTurn = ROND_ID;
+		}else {
+			IDTurn = CROIX_ID;
+		}
+		System.out.println("[LOG] player, "+ playerIdToString(IDTurn) + "starts");
+
+		MasterRenderer.renderText(playerIdToString(IDTurn) + " commence", 1000);
 	}
 
 	public int getIdTurn() {
