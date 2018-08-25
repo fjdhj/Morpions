@@ -20,14 +20,15 @@ import objects.*;
 
 public class LearningIAcore extends Thread{
 
-	private boolean Running;
 	private InputsManagerIA IAinputs;
 	private ArrayList<Jeton> JetonList;
+	private boolean Running;
+	private static final String EQUIPROBABLE = "abcdefghi";
 	private int PLAYER_ID;
 	private int IdTurn;
-	private GameLogic gamemode;
 	private int[][] GameState = {{0, 0, 0},{0, 0, 0},{0, 0, 0}};
 		  			//GameState[x][y]
+	private GameLogic gamemode;
 	private List<History> History = new LinkedList<History>();
 	
 	public LearningIAcore(InputsManagerIA IAinputs, GameLogic gamemode, int playerCroixId) {
@@ -101,53 +102,25 @@ public class LearningIAcore extends Thread{
 		System.out.println("[LEARNING_IA] Id du plateau: /"+id);
 		String status = readXML(History,id);
 		//status = tirage au sort avec les poids
-
 		
-		if(status != ErrorID.IA_OK) {
 		
-		double random = Math.random()*10;
+		if(status == ErrorID.IA_UNKNOWN_STATE) {
+			status = EQUIPROBABLE;
+		}
 		
-		if(random<1*10/9) {
-			History.add(new History(id,'a'));
-			return'a';
-		}
-		if(1*10/9<random && random<2*10/9) {
-			History.add(new History(id,'b'));
-			return'b';
-		}
-		if(2*10/9<random && random<3*10/9) {
-			History.add(new History(id,'c'));
-			return'c';
-		}
-		if(3*10/9<random && random<4*10/9) {
-			History.add(new History(id,'d'));
-			return'd';
-		}
-		if(4*10/9<random && random<5*10/9) {
-			History.add(new History(id,'e'));
-			return'e';
-		}
-		if(5*10/9<random && random<6*10/9) {
-			History.add(new History(id,'f'));
-			return'f';
-		}
-		if(6*10/9<random && random<7*10/9) {
-			History.add(new History(id,'g'));
-			return'g';
-		}
-		if(7*10/9<random && random<8*10/9) {
-			History.add(new History(id,'h'));
-			return'h';
-		}
-		if(8*10/9<random && random<9*10/9) {
-			History.add(new History(id,'i'));
-			return'i';
-		}
-	}
 		
-		return'a';
+		
+		return randomCase(status);
 	}
 	
+	private char randomCase(String str) {
+		char[] population = str.toCharArray();
+		int random = (int) (Math.random()*(population.length-1));
+		System.out.println("[LEARNING_IA] variable aléatoire: "+random);
+		System.out.println("[LEARNING_IA] case choisie: "+population[random]);
+		return population[random];
+	}
+
 	private String readXML(List<ia.History> history, String id) {
 	      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	      factory.setIgnoringElementContentWhitespace(true);
@@ -192,7 +165,7 @@ public class LearningIAcore extends Thread{
 	    	  e.printStackTrace();
 		}
 	      
-  	 	System.out.println("Pas de coups connu trouvé");
+  	 	System.out.println("[LEARNING_IA] Pas de coups connu trouvé");
 		return ErrorID.IA_UNKNOWN_STATE;
 	}
 
