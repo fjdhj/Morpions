@@ -2,148 +2,97 @@ package ia;
 
 public class IA_calculateVictori {
 
-	public static int[] nbr_series(int gameState[][]) {
 		
-		int x, y;
-		int comptJ = 0, comptIA = 0;
-		int n = 3; //le nbr de pion devant être alignée pour gagner
-		int[] playerSeries = {0, 0};
+
 		
+		public static int[] nbr_series(int gameState[][]) {
+			int x, y;
+			int comptJ = 0, comptIA = 0;
+			int n = 3; //le nbr de pion devant être alignée pour gagner
+			int[] playerSeries = {0, 0}; // le premier est les doublets de l'ia et le second ceux du joueur
 		//Horizontalement
 		for(y = 0; y < 3; y++) {
+			int tempComptIA = 0;
+			int tempComptJ = 0;
 			for(x = 0; x < 3; x++) {
-				
-				switch(gameState[x][y]) {
-				
-					case 1 :
-						comptIA++;
-						comptJ = 0;
-						if(comptIA == n) {
-							playerSeries[0]++;
-							
-						}
-						break;
-				
-					case 2 :
-						comptJ++;
-						comptIA = 0;
-						if(comptJ == n) {
-							playerSeries[1]++;
-							
-						}
-						break;
-				
-					}
-				
+				if(gameState[x][y] == 1) {
+					tempComptIA++;
+					tempComptJ = 0;
 				}
-				
-			comptJ = 0; 
-			comptIA = 0;
-			
+				if(gameState[x][y] == 2) {
+					tempComptJ++;
+					tempComptIA = 0;
+				}
+				if(tempComptIA == 2||tempComptJ == 2) {
+					comptJ = tempComptJ;
+					comptIA=tempComptIA;
+				}
 			}
-		
+		}
 		//Verticalement
-		for(y = 0; y < 3; y++) {
-			for(x = 0; x < 3; x++) {
-				
-				switch(gameState[y][x]) {
-				
-					case 1 :
-						comptIA++;
-						comptJ = 0;
-						if(comptIA == n) {
-							playerSeries[0]++;
-							
-						}
-						break;
-				
-					case 2 :
-						comptJ++;
-						comptIA = 0;
-						if(comptJ == n) {
-							playerSeries[1]++;
-							
-						}
-						break;
+		for(x = 0; x < 3; x++) {
+			int tempComptIA = 0;
+			int tempComptJ = 0;
+			for(y = 0; y < 3; y++) {
+
+					if(gameState[x][y] == 1) {
+						tempComptIA++;
+						tempComptJ = 0;
+					}
+					if(gameState[x][y] == 2) {
+						tempComptJ++;
+						tempComptIA = 0;
+					}
+					if(tempComptIA == 2||tempComptJ == 2) {
+						comptJ += tempComptJ;
+						comptIA+=tempComptIA;
+					}
 				
 					}
 				
 
 				
 				}
-				
-			comptJ = 0; 
-			comptIA = 0;
-				
-			}
 		
 		//Diagonale decendante
+		int tempComptIA = 0;
+		int tempComptJ = 0;
 		for(x = 0; x < 3; x++) {
-			
-			switch(gameState[x][x]) {
-			
-				case 1 :
-					comptIA++;
-					comptJ = 0;
-					if(comptIA == n) {
-						playerSeries[0]++;
-						
-					}
-					break;
-			
-				case 2 :
-					comptJ++;
-					comptIA = 0;
-					if(comptJ == n) {
-						playerSeries[1]++;
-						
-					}
-					break;
-			
-				}
-			
 
-			
+			if(gameState[x][x] == 1) {
+				tempComptIA++;
+				tempComptJ = 0;
 			}
-		
-		comptJ = 0; 
-		comptIA = 0;
-		
-		//Diagonal montante
-		for(x = 0; 0 < 3; x++) {
-			switch(gameState[x][2-x]) {
-			
-			case 1 :
-				comptIA++;
-				comptJ = 0;
-				if(comptIA == n) {
-					playerSeries[0]++;
-					
-				}
-				break;
-		
-			case 2 :
-				comptJ++;
-				comptIA = 0;
-				if(comptJ == n) {
-					playerSeries[1]++;
-					
-				}
-				break;
-		
+			if(gameState[x][x] == 2) {
+				tempComptJ++;
+				tempComptIA = 0;
+			}
+			if(tempComptIA == 2||tempComptJ == 2) {
+				comptJ += tempComptJ;
+				comptIA+=tempComptIA;
 			}
 		
 		}
-		
-		return(playerSeries);
-			
-	}
-	
-	
-	
-	
-	/*public static int eval() {
-		return(0);
-	}*/
+		//Diagonale montante
+		for(x = 0; x < 3; x++) {
 
+		if(gameState[x][x-2] == 1) {
+			tempComptIA++;
+			tempComptJ = 0;
+			}
+			if(gameState[x][x-2] == 2) {
+				tempComptJ++;
+				tempComptIA = 0;
+			}
+			if(tempComptIA == 2||tempComptJ == 2) {
+				comptJ += tempComptJ;
+				comptIA+=tempComptIA;
+			}
+		}
+				
+				playerSeries[0] = comptIA;
+				playerSeries[1] = comptJ;
+				return playerSeries;
+
+}
 }
