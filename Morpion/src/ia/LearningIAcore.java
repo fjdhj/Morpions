@@ -9,15 +9,12 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import Menu.Frame;
 import gamelogic.GameLogic;
 import objects.*;
 
@@ -51,6 +48,7 @@ public class LearningIAcore extends Thread{
 	@Override
 	public void run() {
 		Running = true;
+		int LastStatus = -1;
 		while(Running) {
 			getTurn();
 			getJetonList();
@@ -60,6 +58,11 @@ public class LearningIAcore extends Thread{
 				e.printStackTrace();
 			}
 			if(IdTurn == PLAYER_ID) {
+				if(LastStatus == ErrorID.GAME_OVER_ID) {
+					Running = false;
+					System.out.println("[LEARNING_IA] Fin de la partie.");
+					break;
+				}
 				
 				for(Jeton jeton: JetonList) {
 					if(jeton instanceof Rond) {
@@ -71,7 +74,8 @@ public class LearningIAcore extends Thread{
 				}
 				char play = nextPlay(GameState);
 
-				IAinputs.pressACase(charToX(play),charToY(play));
+				LastStatus = IAinputs.pressACase(charToX(play),charToY(play));
+				
 
 			}
 		}		
@@ -80,22 +84,24 @@ public class LearningIAcore extends Thread{
 	
 	private char nextPlay(int[][] gameState) {
 		/*On fabrique l'ID du plateau
-		La linkedList contiendra des objets History. Le positionnement des ces objets 
-		permettera de creer un "replay" de la partie et ensuite d'ecrire son bilan dans un xml.
-		Lire la liste et le bilan xml permet de déduire le coups suivant*/
+		*/
 
-		int id = 0;
+		String id = "";
 		for(int y = 0; y < 3; y++) {
 			for(int x = 0; x < 3; x++) {
-				id = id + x+1*y+1*id+ gameState[x][y];
-				System.out.println(x+1*y+1*id+ gameState[x][y] + "         " + id);
-
+				switch(gameState[x][y]) {
+				case 2 : id = id + 'r';
+				case 1 : id = id + 'c';
+				case 0 : id = id + 'v';
+				}
+				
 			}
 		}
 		
-		int status = readXML(History,id);
-		
-		System.out.println("Id du plateau: @"+id);
+		System.out.println("[LEARNING_IA] Id du plateau: /"+id);
+		String status = readXML(History,id);
+		//status = tirage au sort avec les poids
+
 		
 		if(status != ErrorID.IA_OK) {
 		
@@ -142,47 +148,57 @@ public class LearningIAcore extends Thread{
 		return'a';
 	}
 	
-	private int readXML(List<ia.History> history, int id) {
+	private String readXML(List<ia.History> history, String id) {
 	      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	      factory.setIgnoringElementContentWhitespace(true);
 	      
+	      String returnString = "";
 	      
-	      String expression = "";
-	      
-	      for(History h : history) {
-	    	  expression = expression +"/@"+ h.getID();
-	      }
-
-	      System.out.println(expression);
-	      
-	      if(expression == "") {
-	    	  return ErrorID.IA_EMPTY_PATH;
-	      }
-	      
+	      System.out.println("[LEARNING_IA] Lecture du xml");
 	      try {
 	         DocumentBuilder builder = factory.newDocumentBuilder();
 	         File fileXML = new File("IANeuronalTree.xml");
 	         Document xml = builder.parse(fileXML);
 	         Element root = xml.getDocumentElement();
-	         XPathFactory xpf = XPathFactory.newInstance();
-	         XPath path = xpf.newXPath();
-	                   
-	        
-	        String str = (String)path.evaluate(expression, root);
-	        System.out.println(str);
-	        System.out.println("-------------------------------------");
-	       
-	        
+
+	         NodeList states = root.getChildNodes();
+	         
+	         for(int i = 0; i<states.getLength(); i++) {
+        	 Node temp = states.item(i);
+        	 if(temp instanceof Element && temp.getNodeName().equals(id)) {
+        	 System.out.println("[LEARNING_IA] Situatuion connue");
+        	 System.out.println("-------------------------------------");
+        	 
+        	 	NodeList coups = temp.getChildNodes();
+        	 	for(int a = 0; a<coups.getLength(); a++) {
+        	 		Node tempscoup = coups.item(a);
+        	 		if(tempscoup instanceof Element) {
+        			 
+        	 			for(int n = 0; Integer.parseInt(tempscoup.getAttributes().item(0).getNodeValue())>n;n++) {
+        				 returnString = returnString + tempscoup.getNodeName()  ;
+        	 			}
+        	 		}
+        	 	}
+        	 	System.out.println("[LEARNING_IA] "+returnString);
+	        return returnString;
+        	 }
+	         }
+			
 	      } catch (ParserConfigurationException e) {
-	      } catch (SAXException e) {
+	    	  e.printStackTrace();
 	      } catch (IOException e) {
-	      } catch (XPathExpressionException e) {
-	    	  return ErrorID.IA_EMPTY_PATH;
-	      }
+	    	  e.printStackTrace();
+	      } catch (SAXException e) {
+	    	  e.printStackTrace();
+		}
 	      
-		
-		return 0;
+  	 	System.out.println("Pas de coups connu trouvé");
+		return ErrorID.IA_UNKNOWN_STATE;
 	}
 
+	
+	
+	
 	private int charToX(char c) {
 		switch(c) {
 		case 'a' : return 1;

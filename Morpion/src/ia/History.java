@@ -1,14 +1,14 @@
 package ia;
 
 public class History {
-	private int ID;
+	private String ID;
 	private char playedChar;
 	
-	public History(int iD, char playedChar) {
+	public History(String iD, char playedChar) {
 		ID = iD;
 		this.playedChar = playedChar;
 	}
-	public int getID() {
+	public String getID() {
 		return ID;
 	}
 	public char getPlayedChar() {
