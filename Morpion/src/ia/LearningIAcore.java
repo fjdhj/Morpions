@@ -3,8 +3,10 @@ package ia;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,12 +26,13 @@ public class LearningIAcore extends Thread{
 	private ArrayList<Jeton> JetonList;
 	private boolean Running;
 	private static final String EQUIPROBABLE = "abcdefghi";
+	public static final char[] CHAR = {'a','b','c','d','e','f','g','h','i'};
 	private int PLAYER_ID;
 	private int IdTurn;
 	private int[][] GameState = {{0, 0, 0},{0, 0, 0},{0, 0, 0}};
 		  			//GameState[x][y]
 	private GameLogic gamemode;
-	private ArrayList<History> History = new ArrayList<History>();
+	private ArrayList<History> History =  new ArrayList<History>() ;
 	
 	public LearningIAcore(InputsManagerIA IAinputs, GameLogic gamemode, int playerCroixId) {
 		this.IAinputs = IAinputs;
@@ -49,7 +52,6 @@ public class LearningIAcore extends Thread{
 	@Override
 	public void run() {
 		Running = true;
-		int LastStatus = -1;
 		while(Running) {
 			getTurn();
 			getJetonList();
@@ -58,12 +60,13 @@ public class LearningIAcore extends Thread{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			if(IAinputs.getVictoryState() != GameLogic.VOID_ID) {
+				Running = false;
+				System.out.println("[LEARNING_IA] Fin de la partie: Traitement du fichier bilan...");
+				break;
+			}
 			if(IdTurn == PLAYER_ID) {
-				if(LastStatus == ErrorID.GAME_OVER_ID) {
-					Running = false;
-					System.out.println("[LEARNING_IA] Fin de la partie: Traitement du fichier bilan...");
-					break;
-				}
+				
 				
 				for(Jeton jeton: JetonList) {
 					if(jeton instanceof Rond) {
@@ -74,15 +77,17 @@ public class LearningIAcore extends Thread{
 					
 				}
 				char play = nextPlay(GameState);
-
-				LastStatus = IAinputs.pressACase(charToX(play),charToY(play));
+				int status = IAinputs.pressACase(charToX(play),charToY(play));
+				if(status == ErrorID.BUSY_CASE_ID) {
+					History.remove(History.size()-1);
+				}
 				
 
 			}
 		}
 		
-		//traiter IANeuronalTree.xml
-		
+		IaXmlWriter bilan = new IaXmlWriter();
+		bilan.writeNeuronalXml(History, IAinputs.getVictoryState());
 	}
 	
 	
@@ -107,27 +112,27 @@ public class LearningIAcore extends Thread{
 		
 		System.out.println("[LEARNING_IA] Id du plateau: /"+id);
 		String status = readXML(History,id);
-		//status = tirage au sort avec les poids
-		
 		
 		if(status == ErrorID.IA_UNKNOWN_STATE) {
 			status = EQUIPROBABLE;
 		}
 		//traiter les appuis sur une meme case
-		char play = randomCase(status);
-		History.add(new History(id,play));
+		char[] population = status.toCharArray();
+		char play = randomCase(population);
+		History.add(new History(id,play,population));
 		return play;
 	}
 	
-	private char randomCase(String str) {
-		char[] population = str.toCharArray();
+	private char randomCase(char[] population) {
 		int random = (int) (Math.random()*(population.length-1));
 		System.out.println("[LEARNING_IA] variable aléatoire: "+random);
 		System.out.println("[LEARNING_IA] case choisie: "+population[random]);
 		return population[random];
 	}
 
-	private String readXML(List<ia.History> history, String id) {
+	
+	
+	private String readXML(ArrayList<ia.History> history2, String id) {
 	      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	      factory.setIgnoringElementContentWhitespace(true);
 	      

@@ -1,7 +1,50 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<IAtree>
+<?xml version="1.0" encoding="UTF-8"?><IAtree>
 <vvvvvvvvv>
 <a poids="1"/>
+<b poids="1"/>
+<c poids="1"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="1"/>
+<g poids="3"/>
+<h poids="1"/>
+<i poids="1"/>
+</vvvvvvvvv>
+<vvvrvvcvv>
+<a poids="1"/>
+<b poids="1"/>
+<c poids="1"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="3"/>
+<g poids="1"/>
+<h poids="1"/>
+<i poids="1"/>
+</vvvrvvcvv>
+<vvvrvccrv>
+<a poids="1"/>
+<b poids="1"/>
+<c poids="3"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="1"/>
+<g poids="1"/>
+<h poids="1"/>
+<i poids="1"/>
+</vvvrvccrv>
+<vvcrrccrv>
+<a poids="1"/>
+<b poids="3"/>
+<c poids="1"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="1"/>
+<g poids="1"/>
+<h poids="1"/>
+<i poids="1"/>
+</vvcrrccrv>
+<vccrrccrr>
+<a poids="3"/>
 <b poids="1"/>
 <c poids="1"/>
 <d poids="1"/>
@@ -10,5 +53,5 @@
 <g poids="1"/>
 <h poids="1"/>
 <i poids="1"/>
-</vvvvvvvvv>
+</vccrrccrr>
 </IAtree>

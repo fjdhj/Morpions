@@ -22,6 +22,10 @@ public class InputsManagerIA {
 				}
 				return ErrorID.NO_ERROR_ID;
 			}
+
+		public int getVictoryState() {
+			return Gamemode.getVictoryState();
+		}
 		}
 
 
