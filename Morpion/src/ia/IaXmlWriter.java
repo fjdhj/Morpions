@@ -1,5 +1,7 @@
 package ia;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -18,6 +20,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import gamelogic.GameLogic;
 
@@ -38,11 +43,12 @@ public class IaXmlWriter {
          Document xml = builder.newDocument();
          
          Element root = xml.createElement("IAtree");
-           
+         
+         readXML(history, xml, root);
+
          for(History time: history) {
          fillElement(root, time.getPlayedChar(),time.getID(), victory, time.getPlayWeight(), xml);
          }
-         
          
          Transformer t = TransformerFactory.newInstance().newTransformer();
          t.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -66,8 +72,53 @@ public class IaXmlWriter {
       }
    }
    
-   private static void fillElement(Element element, char play,String nodeName,int victory,int[] playweight , Document xml) {
-  		System.out.println("Traitement...");
+   private void readXML(ArrayList<History> history, Document xml, Element root) {
+	   DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	      factory.setIgnoringElementContentWhitespace(true);
+	      
+	      String returnString = "";
+	      
+	      System.out.println("[LEARNING_IA] Lecture du xml");
+	      try {
+	         DocumentBuilder builder = factory.newDocumentBuilder();
+	         File fileXML = new File("IANeuronalTree.xml");
+	         Document xml1 = builder.parse(fileXML);
+	         Element root1 = xml1.getDocumentElement();
+
+	         NodeList states = root1.getChildNodes();
+	         
+	         for(int i = 0; i<states.getLength(); i++) {
+	        	 Node temp = states.item(i);
+	        	 if(temp instanceof Element) {
+	        	 boolean inList = false;
+	        	 for(History hist:history) {
+	        		if(temp.getNodeName().equals(hist.getID())) {
+	        			inList= true;
+	        		}
+	        	 }
+	        	 if(!inList) {
+	        		 
+     			root.appendChild(xml.importNode(temp, true));
+	        	 }
+	        	 }
+     	 	}
+     	 	System.out.println("[LEARNING_IA] "+returnString);
+
+     	 
+	         
+			
+	      } catch (ParserConfigurationException e) {
+	    	  e.printStackTrace();
+	      } catch (IOException e) {
+	    	  e.printStackTrace();
+	      } catch (SAXException e) {
+	    	  e.printStackTrace();
+		}
+	      
+	 	System.out.println("[LEARNING_IA] Pas de coups connu trouvé");	
+}
+
+private static void fillElement(Element element, char play,String nodeName,int victory,int[] playweight , Document xml) {
 	   	   int poids = 1;
 	   
 		   Element etat = xml.createElement(nodeName);
@@ -79,13 +130,13 @@ public class IaXmlWriter {
 			   
 			   poids = playweight[i];
 			   if(c == play && victory == GameLogic.CROIX_ID) {
-				   poids =+3;
+				   poids = poids + 3;
 			   }
 			   if(c == play && victory == GameLogic.EX_AEQUO_ID) {
-				   poids =+1;
+				   poids = poids + 1;
 			   }
 			   if(c == play && victory == GameLogic.ROND_ID) {
-				   poids =-1;
+				   poids = poids + 1;
 			   }
 		   Element coups = xml.createElement(String.valueOf(c));
 		   coups.setAttribute("poids", String.valueOf(poids));

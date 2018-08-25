@@ -1,16 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?><IAtree>
-<vvvvvvvvv>
+<rvvrvvcvv>
+<a poids="1"/>
+<b poids="1"/>
+<c poids="1"/>
+<d poids="1"/>
+<e poids="4"/>
+<f poids="1"/>
+<g poids="1"/>
+<h poids="1"/>
+<i poids="1"/>
+</rvvrvvcvv>
+<rvvrcvcvr>
+<a poids="1"/>
+<b poids="1"/>
+<c poids="1"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="4"/>
+<g poids="1"/>
+<h poids="1"/>
+<i poids="1"/>
+</rvvrcvcvr>
+<rvvrcccrr>
+<a poids="1"/>
+<b poids="1"/>
+<c poids="4"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="1"/>
+<g poids="1"/>
+<h poids="1"/>
+<i poids="1"/>
+</rvvrcccrr>
+<rvvvvvvvv>
 <a poids="1"/>
 <b poids="1"/>
 <c poids="1"/>
 <d poids="1"/>
 <e poids="1"/>
 <f poids="1"/>
-<g poids="3"/>
+<g poids="1"/>
+<h poids="2"/>
+<i poids="1"/>
+</rvvvvvvvv>
+<rrvvvvvcv>
+<a poids="1"/>
+<b poids="1"/>
+<c poids="1"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="2"/>
+<g poids="1"/>
 <h poids="1"/>
 <i poids="1"/>
-</vvvvvvvvv>
-<vvvrvvcvv>
+</rrvvvvvcv>
+<vrrrccvcv>
+<a poids="1"/>
+<b poids="1"/>
+<c poids="1"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="1"/>
+<g poids="2"/>
+<h poids="1"/>
+<i poids="1"/>
+</vrrrccvcv>
+<vrrrccccr>
+<a poids="2"/>
+<b poids="1"/>
+<c poids="1"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="1"/>
+<g poids="1"/>
+<h poids="1"/>
+<i poids="1"/>
+</vrrrccccr>
+<vvvrvvvcv>
 <a poids="1"/>
 <b poids="1"/>
 <c poids="1"/>
@@ -20,21 +86,32 @@
 <g poids="1"/>
 <h poids="1"/>
 <i poids="1"/>
-</vvvrvvcvv>
-<vvvrvccrv>
+</vvvrvvvcv>
+<vrvrvcvcv>
 <a poids="1"/>
 <b poids="1"/>
-<c poids="3"/>
+<c poids="1"/>
+<d poids="1"/>
+<e poids="3"/>
+<f poids="1"/>
+<g poids="1"/>
+<h poids="1"/>
+<i poids="1"/>
+</vrvrvcvcv>
+<vrvrccrcv>
+<a poids="1"/>
+<b poids="1"/>
+<c poids="2"/>
 <d poids="1"/>
 <e poids="1"/>
 <f poids="1"/>
 <g poids="1"/>
 <h poids="1"/>
 <i poids="1"/>
-</vvvrvccrv>
-<vvcrrccrv>
-<a poids="1"/>
-<b poids="3"/>
+</vrvrccrcv>
+<vrcrccrcr>
+<a poids="2"/>
+<b poids="1"/>
 <c poids="1"/>
 <d poids="1"/>
 <e poids="1"/>
@@ -42,10 +119,87 @@
 <g poids="1"/>
 <h poids="1"/>
 <i poids="1"/>
-</vvcrrccrv>
-<vccrrccrr>
-<a poids="3"/>
+</vrcrccrcr>
+<vrvrvvcvv>
+<a poids="1"/>
 <b poids="1"/>
+<c poids="4"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="1"/>
+<g poids="1"/>
+<h poids="1"/>
+<i poids="1"/>
+</vrvrvvcvv>
+<vrcrvvcvr>
+<a poids="1"/>
+<b poids="1"/>
+<c poids="1"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="1"/>
+<g poids="1"/>
+<h poids="4"/>
+<i poids="1"/>
+</vrcrvvcvr>
+<vrcrvrccr>
+<a poids="1"/>
+<b poids="1"/>
+<c poids="1"/>
+<d poids="1"/>
+<e poids="4"/>
+<f poids="1"/>
+<g poids="1"/>
+<h poids="1"/>
+<i poids="1"/>
+</vrcrvrccr>
+<vvvvvvvvv>
+<a poids="1"/>
+<b poids="1"/>
+<c poids="1"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="2"/>
+<g poids="1"/>
+<h poids="3"/>
+<i poids="1"/>
+</vvvvvvvvv>
+<rvvvvcvvv>
+<a poids="1"/>
+<b poids="1"/>
+<c poids="2"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="1"/>
+<g poids="1"/>
+<h poids="1"/>
+<i poids="1"/>
+</rvvvvcvvv>
+<rvcvrcvvv>
+<a poids="1"/>
+<b poids="1"/>
+<c poids="1"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="1"/>
+<g poids="1"/>
+<h poids="2"/>
+<i poids="1"/>
+</rvcvrcvvv>
+<vvvrvvvvv>
+<a poids="2"/>
+<b poids="1"/>
+<c poids="1"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="1"/>
+<g poids="7"/>
+<h poids="1"/>
+<i poids="1"/>
+</vvvrvvvvv>
+<cvvrrvvvv>
+<a poids="1"/>
+<b poids="2"/>
 <c poids="1"/>
 <d poids="1"/>
 <e poids="1"/>
@@ -53,5 +207,5 @@
 <g poids="1"/>
 <h poids="1"/>
 <i poids="1"/>
-</vccrrccrr>
+</cvvrrvvvv>
 </IAtree>
