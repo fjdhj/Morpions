@@ -76,7 +76,6 @@ public class IaXmlWriter {
 	   DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	      factory.setIgnoringElementContentWhitespace(true);
 	      
-	      String returnString = "";
 	      
 	      System.out.println("[LEARNING_IA] Lecture du xml");
 	      try {
@@ -101,10 +100,7 @@ public class IaXmlWriter {
      			root.appendChild(xml.importNode(temp, true));
 	        	 }
 	        	 }
-     	 	}
-     	 	System.out.println("[LEARNING_IA] "+returnString);
-
-     	 
+     	 	}  	 
 	         
 			
 	      } catch (ParserConfigurationException e) {
@@ -115,7 +111,6 @@ public class IaXmlWriter {
 	    	  e.printStackTrace();
 		}
 	      
-	 	System.out.println("[LEARNING_IA] Pas de coups connu trouvé");	
 }
 
 private static void fillElement(Element element, char play,String nodeName,int victory,int[] playweight , Document xml) {
@@ -136,7 +131,7 @@ private static void fillElement(Element element, char play,String nodeName,int v
 				   poids = poids + 1;
 			   }
 			   if(c == play && victory == GameLogic.ROND_ID) {
-				   poids = poids + 1;
+				   poids = poids - 1;
 			   }
 		   Element coups = xml.createElement(String.valueOf(c));
 		   coups.setAttribute("poids", String.valueOf(poids));
