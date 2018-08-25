@@ -14,6 +14,7 @@ public abstract class GameLogic {
 	public static final int CROIX_ID = -1;
 	public static final int ROND_ID = 1;
 	public static final int VOID_ID = 0;
+	public static final int EX_AEQUO_ID = 2;
 	
 	public static final String CROIX_STR = "CROIX";
 	public static final String ROND_STR = "ROND";
@@ -23,7 +24,15 @@ public abstract class GameLogic {
 	protected static int winnerID = VOID_ID;
 	
 	public GameLogic() {
-		IDTurn = ROND_ID;
+		double random = Math.random()*10;
+		if(random>=5) {
+			IDTurn = ROND_ID;
+		}else {
+			IDTurn = CROIX_ID;
+		}
+		System.out.println("[LOG] player, "+ playerIdToString(IDTurn) + "starts");
+
+		MasterRenderer.renderText(playerIdToString(IDTurn) + " commence", 1000);
 	}
 
 	public int getIdTurn() {
@@ -37,11 +46,18 @@ public abstract class GameLogic {
 			return ROND_STR;
 		}
 	}
-
-	protected void isGameFinished() throws GameLogicException {
+	
+	public int getVictoryState() {
 		if(winnerID!=VOID_ID) {
+			return winnerID;
+		}
+		return VOID_ID;
+	}
+	
+	protected void isGameFinished() throws GameLogicException {
+		if(JetonsList.size()==9) {
 			throw new GameLogicException(ErrorID.GAME_OVER_ID, 0);
-		}		
+		}	
 	}
   public ArrayList<Jeton> getJetonList(){
 		return JetonsList;	
@@ -60,12 +76,13 @@ public abstract class GameLogic {
 		screenUpdt();
 
 		int winner = calculateVictory(play);
-		if(winner!=0) {
+		if(winner!=VOID_ID) {
 			System.out.println(winner + ": a gagne");
 			winnerID = winner;
 			MasterRenderer.renderText("Partie terminee",0);
+			if(winner!=EX_AEQUO_ID) {
 			MasterRenderer.renderText("L'Equipe "+playerIdToString(winner) + "a gagne!!", 2000);
-
+			}
 		}
 	}		
 	
@@ -133,6 +150,9 @@ public abstract class GameLogic {
 			return i;
 		}
 		
+		if(JetonsList.size() == 9) {
+		return EX_AEQUO_ID;
+		}
 		return i;
 	}
 	
