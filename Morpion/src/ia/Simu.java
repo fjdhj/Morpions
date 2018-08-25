@@ -72,7 +72,6 @@ public class Simu {
 				
 				if(gameState[x][y] != 0) {
 					
-					nbr_pions++;
 				}
 			}
 		}
@@ -81,16 +80,5 @@ public class Simu {
 		return(0);
 	}
 	
-	
-	
-	public static void setSeriesJ(int series) {
-		seriesJ = series;
-		
-	}
-	
-	public static void setSeriesIA(int series) {
-		seriesIA = series;
-		
-	}
 
 }
