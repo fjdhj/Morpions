@@ -104,12 +104,12 @@ public class Frame extends JFrame{
 	}
 
 	private void StartPvIA() {
-		gamemode = new PvIA();
+	 	gamemode = new PvIA();
 		inputManager = new InputsManager(renderer.getGraphicPane(), gamemode,PLAYER_ROND_ID);
 		
-		InputsManagerIA IAinputs = new InputsManagerIA(gamemode,PLAYER_CROIX_ID);
-		IAcore IA = new IAcore(IAinputs, gamemode,PLAYER_CROIX_ID);
-		IA.start();
+		InputsManagerIA IA2inputs = new InputsManagerIA(gamemode, PLAYER_CROIX_ID);
+		LearningIAcore IA2 = new LearningIAcore(IA2inputs, gamemode,PLAYER_CROIX_ID);
+		IA2.start();
 		
 	}
 	
