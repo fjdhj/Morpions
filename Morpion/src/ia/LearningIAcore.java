@@ -29,7 +29,7 @@ public class LearningIAcore extends Thread{
 	private int[][] GameState = {{0, 0, 0},{0, 0, 0},{0, 0, 0}};
 		  			//GameState[x][y]
 	private GameLogic gamemode;
-	private List<History> History = new LinkedList<History>();
+	private ArrayList<History> History = new ArrayList<History>();
 	
 	public LearningIAcore(InputsManagerIA IAinputs, GameLogic gamemode, int playerCroixId) {
 		this.IAinputs = IAinputs;
@@ -61,7 +61,7 @@ public class LearningIAcore extends Thread{
 			if(IdTurn == PLAYER_ID) {
 				if(LastStatus == ErrorID.GAME_OVER_ID) {
 					Running = false;
-					System.out.println("[LEARNING_IA] Fin de la partie.");
+					System.out.println("[LEARNING_IA] Fin de la partie: Traitement du fichier bilan...");
 					break;
 				}
 				
@@ -79,7 +79,10 @@ public class LearningIAcore extends Thread{
 				
 
 			}
-		}		
+		}
+		
+		//traiter IANeuronalTree.xml
+		
 	}
 	
 	
@@ -92,8 +95,11 @@ public class LearningIAcore extends Thread{
 			for(int x = 0; x < 3; x++) {
 				switch(gameState[x][y]) {
 				case 2 : id = id + 'r';
+				break;
 				case 1 : id = id + 'c';
+				break;
 				case 0 : id = id + 'v';
+				break;
 				}
 				
 			}
@@ -107,10 +113,10 @@ public class LearningIAcore extends Thread{
 		if(status == ErrorID.IA_UNKNOWN_STATE) {
 			status = EQUIPROBABLE;
 		}
-		
-		
-		
-		return randomCase(status);
+		//traiter les appuis sur une meme case
+		char play = randomCase(status);
+		History.add(new History(id,play));
+		return play;
 	}
 	
 	private char randomCase(String str) {
