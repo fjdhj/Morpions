@@ -1,5 +1,8 @@
 package ia;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,6 +19,8 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import gamelogic.GameLogic;
+
 public class IaXmlWriter {
 
 	private static char[] CasesChar = {'a','b','c','d','e','f','g','h','i'};
@@ -24,7 +29,7 @@ public class IaXmlWriter {
 	   
    }
    
-   public void writeNeuronalXml() {
+   public void writeNeuronalXml(ArrayList<History> history, int victory) {
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
       try {
@@ -33,10 +38,13 @@ public class IaXmlWriter {
          Document xml = builder.newDocument();
          
          Element root = xml.createElement("IAtree");
-                    
-         fillElement(root, CasesChar, xml);
+           
+         for(History time: history) {
+         fillElement(root, time.getPlayedChar(),time.getID(), victory, time.getPlayWeight(), xml);
+         }
+         
+         
          Transformer t = TransformerFactory.newInstance().newTransformer();
-         t.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "maDtdBibon.dtd");
          t.setOutputProperty(OutputKeys.INDENT, "yes");
          String resultFile = "IANeuronalTree.xml"; 
          StreamResult XML = new StreamResult(resultFile);
@@ -53,33 +61,38 @@ public class IaXmlWriter {
          e.printStackTrace();
       } catch (TransformerException e) {
          e.printStackTrace();
-      }       
+      }finally {
+    	  System.out.println("[LEARNING_IA] Fin de traitement\n ---------arret---------");
+      }
    }
    
-   private static void fillElement(Element element, char[] CasesChar,Document xml) {
-	   	   
-	   for(char charactere: CasesChar) {
-		   Element noeud = xml.createElement(String.valueOf(charactere));
-		   noeud.setAttribute("poids", "1");
-		   System.out.println(noeud.getNodeName() + " :fils de : "+ element.getNodeName());
-		   element.appendChild(noeud);
+   private static void fillElement(Element element, char play,String nodeName,int victory,int[] playweight , Document xml) {
+  		System.out.println("Traitement...");
+	   	   int poids = 1;
+	   
+		   Element etat = xml.createElement(nodeName);
+		   System.out.println(etat.getNodeName() + " :fils de : "+ element.getNodeName());
+		   element.appendChild(etat);
 		   
-		   String str = "";
-		   for(char charac : CasesChar) {
-			   if(charac != charactere) {
-				   str+=charac;
+		   int i = 0;
+		   for(char c:LearningIAcore.CHAR) {
+			   
+			   poids = playweight[i];
+			   if(c == play && victory == GameLogic.CROIX_ID) {
+				   poids =+3;
 			   }
+			   if(c == play && victory == GameLogic.EX_AEQUO_ID) {
+				   poids =+1;
+			   }
+			   if(c == play && victory == GameLogic.ROND_ID) {
+				   poids =-1;
+			   }
+		   Element coups = xml.createElement(String.valueOf(c));
+		   coups.setAttribute("poids", String.valueOf(poids));
+		   etat.appendChild(coups); 
+		   i++;
 		   }
-		   System.out.println("[LOG]  contenu de str : "+str);
-				if(str=="") {
-					 Element noeudFin = xml.createElement(String.valueOf(charactere));
-					 noeudFin.setTextContent("Fond de noeud");
-					 noeud.appendChild(noeudFin); 
-					break;
-				}
-		   char[] newChar = str.toCharArray();
-		   fillElement(noeud, newChar, xml);
-	   }
+		   
    }
 
    
