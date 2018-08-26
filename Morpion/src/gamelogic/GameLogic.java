@@ -64,7 +64,7 @@ public abstract class GameLogic {
 	
 	}
 	
-	public void casePressed(int X, int Y,int ID) throws GameLogicException, OutOfBoundException{	
+	public synchronized void casePressed(int X, int Y,int ID) throws GameLogicException, OutOfBoundException{	
 		isGameFinished();
 		for(Jeton jetonTest: JetonsList) {
 			if(jetonTest.getX() == X &&  jetonTest.getY() == Y) {

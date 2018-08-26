@@ -3,11 +3,6 @@ package ia;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -103,7 +98,7 @@ public class LearningIAcore extends Thread{
 	private char nextPlay(int[][] gameState) {
 		/*On fabrique l'ID du plateau
 		*/
-
+		
 		String id = "";
 		for(int y = 0; y < 3; y++) {
 			for(int x = 0; x < 3; x++) {
@@ -120,9 +115,30 @@ public class LearningIAcore extends Thread{
 		}
 		
 		System.out.println("[LEARNING_IA] Id du plateau: /"+id);
-		String status = readXML(History,id);
+		String status = readXML(id);
+		//Il serait possible de générer un id symétrique, de le faire chercher dans le ficher
+		//et ensuite de générer une population qui mixe les 2.
+		// Cette solution serait surtout efficace si aucun coups n'est trouvé: il suffit de chercher un symétrique
+		//et de le convertir.
+		String newId = id;
+		int symetry = 0;
+		if(status == ErrorID.IA_UNKNOWN_STATE) {
+			 newId = symetriseHorizontalID(id);
+			status = readXML(newId);
+			symetry = 1;
+		}
 		
 		if(status == ErrorID.IA_UNKNOWN_STATE) {
+			 newId = symetriseVerticalID(id);
+			status = readXML(newId);
+			symetry = 2;
+		}
+		
+		
+		//Exclure les cases pleines si cas inconnu
+		if(status == ErrorID.IA_UNKNOWN_STATE) {
+			System.out.println("[LEARNING_IA] Pas de symetrie, tentative aléatoire");
+
 			char[] nodeChar = id.toCharArray();
 			int nodeCharParser = 0;
 			status = "";
@@ -132,12 +148,73 @@ public class LearningIAcore extends Thread{
 				   }
 				   nodeCharParser++;
 			}
+			char[] population = status.toCharArray();
+			char play = randomCase(population);
+			History.add(new History(id,play,population));
+			return play;
 		}
-		//traiter les appuis sur une meme case
+		
+	//coups connu par symetrie ou non. donc 3 cas possibles: pas de symetrie/symetrieH/symetrieV	
 		char[] population = status.toCharArray();
 		char play = randomCase(population);
 		History.add(new History(id,play,population));
+		//si la symetrie a trouvé: il faut aussi inverser le résultat
+				switch(symetry) {
+				case 1: play = symetriseHorizontalChar(play);
+				case 2: play = symetriseVerticalChar(play);
+				}
 		return play;
+	}
+	
+	
+	private char symetriseHorizontalChar(char c) {
+		
+		switch(c) {
+		case 'a' : return 'c';
+		case 'c' : return 'a';
+		case 'd' : return 'f';
+		case 'f' : return 'd';
+		case 'g' : return 'i';
+		case 'i' : return 'g';
+		}
+		
+		return c;
+	}
+	
+	private char symetriseVerticalChar(char c) {
+		
+		switch(c) {
+		case 'a' : return 'g';
+		case 'b' : return 'h';
+		case 'c' : return 'i';
+		case 'g' : return 'a';
+		case 'h' : return 'b';
+		case 'i' : return 'c';
+		}
+		
+		return c;
+	}
+
+	private String symetriseVerticalID(String input) {
+		String id = "";
+		char[] idChar = input.toCharArray();
+		id= String.valueOf(idChar[6]) + String.valueOf(idChar[7]) + String.valueOf(idChar[8]);
+		id= id +String.valueOf(idChar[4]) + String.valueOf(idChar[5]) + String.valueOf(idChar[6]);
+		id= id +String.valueOf(idChar[1]) + String.valueOf(idChar[2]) + String.valueOf(idChar[3]);
+		
+		System.out.println("[LEARNING_IA] Id d'un plateau symetrique: /"+id);
+		return id;
+	}
+
+	private String symetriseHorizontalID(String input) {
+		String id = "";
+		char[] idChar = input.toCharArray();
+		id= String.valueOf(idChar[2]) + String.valueOf(idChar[1]) + String.valueOf(idChar[0]);
+		id= id +String.valueOf(idChar[5]) + String.valueOf(idChar[4]) + String.valueOf(idChar[3]);
+		id= id +String.valueOf(idChar[8]) + String.valueOf(idChar[7]) + String.valueOf(idChar[6]);
+		
+		System.out.println("[LEARNING_IA] Id d'un plateau symetrique: /"+id);
+		return id;
 	}
 	
 	private char randomCase(char[] population) {
@@ -149,7 +226,7 @@ public class LearningIAcore extends Thread{
 
 	
 	
-	private String readXML(ArrayList<ia.History> history2, String id) {
+	private String readXML(String id) {
 	      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	      factory.setIgnoringElementContentWhitespace(true);
 	      
@@ -192,6 +269,7 @@ public class LearningIAcore extends Thread{
 		}
 	      
   	 	System.out.println("[LEARNING_IA] Pas de coups connu trouvé");
+  	 	System.out.println("-------------------------------------");
 		return ErrorID.IA_UNKNOWN_STATE;
 	}
 
