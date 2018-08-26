@@ -25,7 +25,6 @@ public class LearningIAcore extends Thread{
 	private InputsManagerIA IAinputs;
 	private ArrayList<Jeton> JetonList;
 	private boolean Running;
-	private static final String EQUIPROBABLE = "abcdefghi";
 	public static final char[] CHAR = {'a','b','c','d','e','f','g','h','i'};
 	private int PLAYER_ID;
 	private int IdTurn;
@@ -114,7 +113,15 @@ public class LearningIAcore extends Thread{
 		String status = readXML(History,id);
 		
 		if(status == ErrorID.IA_UNKNOWN_STATE) {
-			status = EQUIPROBABLE;
+			char[] nodeChar = id.toCharArray();
+			int nodeCharParser = 0;
+			status = "";
+			for(char c:nodeChar) {
+				   if(c == 'v') {
+					  status = status + String.valueOf(CHAR[nodeCharParser]);
+				   }
+				   nodeCharParser++;
+			}
 		}
 		//traiter les appuis sur une meme case
 		char[] population = status.toCharArray();
@@ -137,7 +144,6 @@ public class LearningIAcore extends Thread{
 	      factory.setIgnoringElementContentWhitespace(true);
 	      
 	      String returnString = "";
-	      
 	      System.out.println("[LEARNING_IA] Lecture du xml");
 	      try {
 	         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -157,10 +163,9 @@ public class LearningIAcore extends Thread{
         	 	for(int a = 0; a<coups.getLength(); a++) {
         	 		Node tempscoup = coups.item(a);
         	 		if(tempscoup instanceof Element) {
-        			 
-        	 			for(int n = 0; Integer.parseInt(tempscoup.getAttributes().item(0).getNodeValue())>n;n++) {
-        				 returnString = returnString + tempscoup.getNodeName()  ;
-        	 			}
+        	 				 for(int n = 0; Integer.parseInt(tempscoup.getAttributes().item(0).getNodeValue())>n;n++) {
+        	 					 returnString = returnString + tempscoup.getNodeName()  ;
+        	 			 }
         	 		}
         	 	}
         	 	System.out.println("[LEARNING_IA] "+returnString);
