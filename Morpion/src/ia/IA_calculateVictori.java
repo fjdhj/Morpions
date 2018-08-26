@@ -94,5 +94,25 @@ public class IA_calculateVictori {
 				playerSeries[1] = comptJ;
 				return playerSeries;
 
-}
+		}
+		
+		
+		public static int Winer(int[][] gameState) {
+			
+			int playerSeries[] = {0, 0};
+			
+			playerSeries = nbr_series(gameState);
+			
+			if(playerSeries[0] != 0 && playerSeries[1] == 0) { //Si IA gagne
+				
+			}else if(playerSeries[0] == 0 && playerSeries[1] != 0) { //Si player
+				
+			}else if(playerSeries[0] == 0 && playerSeries[1] == 0) { //Si personne ne gagne
+				
+			}else if(playerSeries[0] != 0 && playerSeries[1] != 0) { //Si égalité
+				
+			}
+			
+			
+		}
 }

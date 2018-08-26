@@ -63,15 +63,15 @@ public class Simu {
 	
 	public static int eval(int gameState[][]) {
 		
-		int winer, nbr_pions;
-		int x, y;
+		int nbr_pions = 0;
+		int x, y, winer;
 		
 		
 		for(y = 0; y < 3; y++) {
 			for(x = 0; x < 3; x++) {
 				
 				if(gameState[x][y] != 0) {
-					
+					nbr_pions++;
 				}
 			}
 		}
