@@ -199,8 +199,8 @@ public class LearningIAcore extends Thread{
 		String id = "";
 		char[] idChar = input.toCharArray();
 		id= String.valueOf(idChar[6]) + String.valueOf(idChar[7]) + String.valueOf(idChar[8]);
-		id= id +String.valueOf(idChar[4]) + String.valueOf(idChar[5]) + String.valueOf(idChar[6]);
-		id= id +String.valueOf(idChar[1]) + String.valueOf(idChar[2]) + String.valueOf(idChar[3]);
+		id= id +String.valueOf(idChar[3]) + String.valueOf(idChar[4]) + String.valueOf(idChar[5]);
+		id= id +String.valueOf(idChar[0]) + String.valueOf(idChar[1]) + String.valueOf(idChar[2]);
 		
 		System.out.println("[LEARNING_IA] Id d'un plateau symetrique: /"+id);
 		return id;
