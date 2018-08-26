@@ -34,7 +34,7 @@ public class IaXmlWriter {
 	   
    }
    
-   public void writeNeuronalXml(ArrayList<History> history, int victory) {
+   public void writeNeuronalXml(ArrayList<History> history, int victory, int iA_ID) {
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
       try {
@@ -44,7 +44,7 @@ public class IaXmlWriter {
          
          Element root = xml.createElement("IAtree");
          
-         readXML(history, xml, root);
+         readXML(history, xml, root,iA_ID);
 
          for(History time: history) {
          fillElement(root, time.getPlayedChar(),time.getID(), victory, time.getPlayWeight(), xml);
@@ -52,7 +52,7 @@ public class IaXmlWriter {
          
          Transformer t = TransformerFactory.newInstance().newTransformer();
          t.setOutputProperty(OutputKeys.INDENT, "yes");
-         String resultFile = "IANeuronalTree.xml"; 
+         String resultFile = "IANeuronalTree"+iA_ID+".xml"; 
          StreamResult XML = new StreamResult(resultFile);
          
          t.transform(new DOMSource(root), XML);       
@@ -72,7 +72,7 @@ public class IaXmlWriter {
       }
    }
    
-   private void readXML(ArrayList<History> history, Document xml, Element root) {
+   private void readXML(ArrayList<History> history, Document xml, Element root, int iA_ID) {
 	   DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	      factory.setIgnoringElementContentWhitespace(true);
 	      
@@ -80,7 +80,7 @@ public class IaXmlWriter {
 	      System.out.println("[LEARNING_IA] Lecture du xml");
 	      try {
 	         DocumentBuilder builder = factory.newDocumentBuilder();
-	         File fileXML = new File("IANeuronalTree.xml");
+	         File fileXML = new File("IANeuronalTree"+iA_ID+".xml");
 	         Document xml1 = builder.parse(fileXML);
 	         Element root1 = xml1.getDocumentElement();
 

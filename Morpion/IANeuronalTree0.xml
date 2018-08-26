@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><IAtree>
+<vvrvvvvvv>
+<a poids="1"/>
+<b poids="1"/>
+<c poids="0"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="1"/>
+<g poids="1"/>
+<h poids="0"/>
+<i poids="1"/>
+</vvrvvvvvv>
+<vrrvvvvcv>
+<a poids="1"/>
+<b poids="0"/>
+<c poids="0"/>
+<d poids="1"/>
+<e poids="1"/>
+<f poids="1"/>
+<g poids="0"/>
+<h poids="0"/>
+<i poids="1"/>
+</vrrvvvvcv>
+</IAtree>

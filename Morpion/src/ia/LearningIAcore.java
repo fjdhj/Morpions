@@ -32,6 +32,16 @@ public class LearningIAcore extends Thread{
 		  			//GameState[x][y]
 	private GameLogic gamemode;
 	private ArrayList<History> History =  new ArrayList<History>() ;
+	private int IA_ID=0;
+	
+	public LearningIAcore(InputsManagerIA IAinputs, GameLogic gamemode, int playerCroixId, int ia_id) {
+		this.IAinputs = IAinputs;
+		JetonList = gamemode.getJetonList();
+		this.gamemode = gamemode;
+ 		IdTurn = gamemode.getIdTurn();
+		this.PLAYER_ID = playerCroixId;
+		this.IA_ID = ia_id;
+	}
 	
 	public LearningIAcore(InputsManagerIA IAinputs, GameLogic gamemode, int playerCroixId) {
 		this.IAinputs = IAinputs;
@@ -86,7 +96,7 @@ public class LearningIAcore extends Thread{
 		}
 		
 		IaXmlWriter bilan = new IaXmlWriter();
-		bilan.writeNeuronalXml(History, IAinputs.getVictoryState());
+		bilan.writeNeuronalXml(History, IAinputs.getVictoryState(), IA_ID);
 	}
 	
 	
@@ -147,7 +157,7 @@ public class LearningIAcore extends Thread{
 	      System.out.println("[LEARNING_IA] Lecture du xml");
 	      try {
 	         DocumentBuilder builder = factory.newDocumentBuilder();
-	         File fileXML = new File("IANeuronalTree.xml");
+	         File fileXML = new File("IANeuronalTree"+IA_ID+".xml");
 	         Document xml = builder.parse(fileXML);
 	         Element root = xml.getDocumentElement();
 
