@@ -113,25 +113,33 @@ public class IaXmlWriter {
 	      
 }
 
-private static void fillElement(Element element, char play,String nodeName,int victory,int[] playweight , Document xml) {
+   private void fillElement(Element element, char play,String nodeName,int victory,int[] playweight , Document xml) {
 	   	   int poids = 1;
 	   
 		   Element etat = xml.createElement(nodeName);
-		   System.out.println(etat.getNodeName() + " :fils de : "+ element.getNodeName());
+		   char[] nodeChar = etat.getNodeName().toCharArray();
+		   System.out.println(String.valueOf(nodeChar) + " :fils de : "+ element.getNodeName());
 		   element.appendChild(etat);
 		   
 		   int i = 0;
 		   for(char c:LearningIAcore.CHAR) {
+			   //parcourir le nom du noeud et si à l'emplacement de c il n'y a pas v, poids = 0
 			   
-			   poids = playweight[i];
-			   if(c == play && victory == GameLogic.CROIX_ID) {
-				   poids = poids + 3;
-			   }
-			   if(c == play && victory == GameLogic.EX_AEQUO_ID) {
-				   poids = poids + 1;
-			   }
-			   if(c == play && victory == GameLogic.ROND_ID) {
-				   poids = poids - 1;
+			   if(nodeChar[i] != 'v') {
+				   poids = 0;
+			   }else {
+				   poids = playweight[i];
+			   
+			   
+				   if(c == play && victory == GameLogic.CROIX_ID) {
+					   poids = poids + 3;
+				   }
+				   if(c == play && victory == GameLogic.EX_AEQUO_ID) {
+					   poids = poids + 1;
+				   }
+				   if(c == play && victory == GameLogic.ROND_ID) {
+					   poids = poids - 1;
+				   }
 			   }
 		   Element coups = xml.createElement(String.valueOf(c));
 		   coups.setAttribute("poids", String.valueOf(poids));
