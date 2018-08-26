@@ -57,13 +57,14 @@ public class LearningIAcore extends Thread{
 	public void run() {
 		Running = true;
 		while(Running) {
-			getTurn();
-			getJetonList();
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			getTurn();
+			getJetonList();
+			
 			if(IAinputs.getVictoryState() != GameLogic.VOID_ID) {
 				Running = false;
 				System.out.println("[LEARNING_IA] Fin de la partie: Traitement du fichier bilan...");
@@ -134,12 +135,25 @@ public class LearningIAcore extends Thread{
 			symetry = 2;
 		}
 		
+		if(status == ErrorID.IA_UNKNOWN_STATE) {
+			 newId = symetriseDiagID(id);
+			status = readXML(newId);
+			symetry = 3;
+		}
+		
+		if(status == ErrorID.IA_UNKNOWN_STATE) {
+			 newId = symetriseVerticalID(symetriseHorizontalID(id));
+			status = readXML(newId);
+			symetry = 4;
+		}
 		
 		//Exclure les cases pleines si cas inconnu
 		if(status == ErrorID.IA_UNKNOWN_STATE) {
+			symetry = 0;
 			System.out.println("[LEARNING_IA] Pas de symetrie, tentative aléatoire");
 
 			char[] nodeChar = id.toCharArray();
+			newId = id;
 			int nodeCharParser = 0;
 			status = "";
 			for(char c:nodeChar) {
@@ -148,25 +162,39 @@ public class LearningIAcore extends Thread{
 				   }
 				   nodeCharParser++;
 			}
-			char[] population = status.toCharArray();
-			char play = randomCase(population);
-			History.add(new History(id,play,population));
-			return play;
 		}
 		
 	//coups connu par symetrie ou non. donc 3 cas possibles: pas de symetrie/symetrieH/symetrieV	
 		char[] population = status.toCharArray();
 		char play = randomCase(population);
-		History.add(new History(id,play,population));
+		History.add(new History(newId,play,population));
 		//si la symetrie a trouvé: il faut aussi inverser le résultat
 				switch(symetry) {
 				case 1: play = symetriseHorizontalChar(play);
+				break;
 				case 2: play = symetriseVerticalChar(play);
+				break;
+				case 3: play = symetriseDiagChar(play);
+				break;
+				case 4: play = symetriseVerticalChar(symetriseHorizontalChar(play));
+				break;
 				}
+		System.out.println("[LEARNING_IA] case choisie: "+play);
 		return play;
 	}
 	
-	
+	private char symetriseDiagChar(char c) {
+		switch(c) {
+		case 'b' : return 'd';
+		case 'c' : return 'g';
+		case 'd' : return 'b';
+		case 'f' : return 'h';
+		case 'g' : return 'c';
+		case 'h' : return 'f';
+		}
+		return c;
+	}
+
 	private char symetriseHorizontalChar(char c) {
 		
 		switch(c) {
@@ -217,10 +245,21 @@ public class LearningIAcore extends Thread{
 		return id;
 	}
 	
+	private String symetriseDiagID(String input) {
+		String id = "";
+		char[] idChar = input.toCharArray();
+		id= 	String.valueOf(idChar[0]) + String.valueOf(idChar[3]) + String.valueOf(idChar[6]);
+		id= id +String.valueOf(idChar[4]) + String.valueOf(idChar[1]) + String.valueOf(idChar[7]);
+		id= id +String.valueOf(idChar[2]) + String.valueOf(idChar[5]) + String.valueOf(idChar[8]);
+		
+		System.out.println("[LEARNING_IA] Id d'un plateau symetrique: /"+id);
+		return id;
+	}
+	
 	private char randomCase(char[] population) {
+		//vérifier la méthode
 		int random = (int) (Math.random()*(population.length-1));
 		System.out.println("[LEARNING_IA] variable aléatoire: "+random);
-		System.out.println("[LEARNING_IA] case choisie: "+population[random]);
 		return population[random];
 	}
 
@@ -256,6 +295,9 @@ public class LearningIAcore extends Thread{
         	 		}
         	 	}
         	 	System.out.println("[LEARNING_IA] "+returnString);
+        	 	if(returnString == "") {
+        	        return ErrorID.IA_UNKNOWN_STATE;
+        	 	}
 	        return returnString;
         	 }
 	         }

@@ -35,7 +35,7 @@ public abstract class GameLogic {
 		MasterRenderer.renderText(playerIdToString(IDTurn) + " commence", 1000);
 	}
 
-	public int getIdTurn() {
+	public synchronized int getIdTurn() {
 		return IDTurn;
 	}
 	

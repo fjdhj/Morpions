@@ -29,14 +29,12 @@ import gamelogic.GameLogic;
 public class IaXmlWriter {
 
 	private static char[] CasesChar = {'a','b','c','d','e','f','g','h','i'};
-	
    public IaXmlWriter() {
 	   
    }
    
    public void writeNeuronalXml(ArrayList<History> history, int victory, int iA_ID) {
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
       try {
          DocumentBuilder builder = factory.newDocumentBuilder();
          
@@ -46,9 +44,11 @@ public class IaXmlWriter {
          
          readXML(history, xml, root,iA_ID);
 
+         int profondeur = 0;
          for(History time: history) {
-         fillElement(root, time.getPlayedChar(),time.getID(), victory, time.getPlayWeight(), xml);
-         }
+         fillElement(root, time.getPlayedChar(),time.getID(), victory, time.getPlayWeight(), profondeur, xml);
+         profondeur +=2;
+		 }
          
          Transformer t = TransformerFactory.newInstance().newTransformer();
          t.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -113,7 +113,7 @@ public class IaXmlWriter {
 	      
 }
 
-   private void fillElement(Element element, char play,String nodeName,int victory,int[] playweight , Document xml) {
+   private void fillElement(Element element, char play,String nodeName,int victory,int[] playweight,int profondeur , Document xml) {
 	   	   int poids = 1;
 	   
 		   Element etat = xml.createElement(nodeName);
@@ -132,15 +132,18 @@ public class IaXmlWriter {
 			   
 			   
 				   if(c == play && victory == GameLogic.CROIX_ID) {
-					   poids = poids + 3;
+					   poids = poids + 3 + profondeur;
 				   }
 				   if(c == play && victory == GameLogic.EX_AEQUO_ID) {
 					   poids = poids + 1;
 				   }
 				   if(c == play && victory == GameLogic.ROND_ID) {
-					   poids = poids - 1;
+					   poids = poids - 1 - profondeur;
 				   }
 			   }
+			   if(poids < 0) {
+				   poids = 0;
+		   }
 		   Element coups = xml.createElement(String.valueOf(c));
 		   coups.setAttribute("poids", String.valueOf(poids));
 		   etat.appendChild(coups); 
