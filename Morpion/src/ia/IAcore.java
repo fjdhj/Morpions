@@ -52,7 +52,8 @@ public class IAcore extends Thread{
 				
 				int gameState[][] = { {0, 0, 0}, {0, 0, 0}, {0, 0, 0} };
 				int max = -1000;
-				int sim, maxX, maxY;
+				int sim; 
+				int maxX = 1, maxY = 1;
 				int profondeur = 3;
 				
 				
@@ -82,16 +83,19 @@ public class IAcore extends Thread{
 							
 							sim = Simu.Min(gameState, profondeur-1); // On simul ce que pourait joueur le joueur
 							
+							if(sim > max) {
+								max = sim;
+								maxX = x + 1;
+								maxY = y + 1;
+							}
 							
+							gameState[x][y] = 0;
 						}
 						
 					}
 				}
-				
-				IAinputs.pressACase(1, 1);
-				IAinputs.pressACase(2, 1);
-				IAinputs.pressACase(3, 1);
-				
+				System.out.println(maxX + ", " + maxY);
+				IAinputs.pressACase(maxX, maxY);
 				
 			}
 		}		
