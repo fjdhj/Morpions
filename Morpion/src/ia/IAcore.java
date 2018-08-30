@@ -51,7 +51,7 @@ public class IAcore extends Thread{
 
 				
 				int gameState[][] = { {0, 0, 0}, {0, 0, 0}, {0, 0, 0} };
-				int max = -1000;
+				int max = -10000;
 				int sim; 
 				int maxX = 1, maxY = 1;
 				int profondeur = 3;
