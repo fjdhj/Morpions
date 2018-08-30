@@ -76,11 +76,11 @@ public class IA_calculateVictori {
 		//Diagonale montante
 		for(x = 0; x < 3; x++) {
 
-		if(gameState[x][x-2] == 1) {
-			tempComptIA++;
-			tempComptJ = 0;
+			if(gameState[x][2-x] == 1) {
+				tempComptIA++;
+				tempComptJ = 0;
 			}
-			if(gameState[x][x-2] == 2) {
+			if(gameState[x][2-x] == 2) {
 				tempComptJ++;
 				tempComptIA = 0;
 			}
@@ -104,13 +104,17 @@ public class IA_calculateVictori {
 			playerSeries = nbr_series(gameState);
 			
 			if(playerSeries[0] != 0 && playerSeries[1] == 0) { //Si IA gagne
+				return(1);
 				
 			}else if(playerSeries[0] == 0 && playerSeries[1] != 0) { //Si player
+				return(2);
 				
 			}else if(playerSeries[0] == 0 && playerSeries[1] == 0) { //Si personne ne gagne
-				
-			}else if(playerSeries[0] != 0 && playerSeries[1] != 0) { //Si égalité
-				
+				return(0);
+
+			}else{ //Si fini + personne ne gagne
+				return(3);
+
 			}
 			
 			
