@@ -33,7 +33,8 @@ public class Frame extends JFrame{
 	
 	private static JLabel title = new JLabel("Jeu du morpion");
 	
-	private static JButton IA = new JButton("Joueur VS IA");
+	private static JButton PvIA = new JButton("Joueur VS IA");
+	private static JButton PvIA2 = new JButton("Joueur VS LearningIA");
 	private static JButton player = new JButton("Joueur VS Joueur");
 	private static JButton IAvsIA = new JButton("IA VS IA");
 	
@@ -59,12 +60,14 @@ public class Frame extends JFrame{
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		PANtitle.add(title);
 		
-		IA.addActionListener(new IAListener());
+		PvIA.addActionListener(new IAListener());
+		PvIA2.addActionListener(new LearningIAListener());
 		player.addActionListener(new playerListener());
 		IAvsIA.addActionListener(new IAvIAListener());
 		
 		
-		PANbutton.add(IA);
+		PANbutton.add(PvIA);
+		PANbutton.add(PvIA2);
 		PANbutton.add(player);
 		PANbutton.add(IAvsIA);
 		
@@ -94,7 +97,7 @@ public class Frame extends JFrame{
 		gamemode = new PvIA();
 		
 		InputsManagerIA IAinputs = new InputsManagerIA(gamemode, PLAYER_ROND_ID);
-		LearningIAcore IA = new LearningIAcore(IAinputs, gamemode,PLAYER_ROND_ID,1);
+		IAcore IA = new IAcore(IAinputs, gamemode,PLAYER_ROND_ID);
 		IA.start();
 		
 		InputsManagerIA IA2inputs = new InputsManagerIA(gamemode, PLAYER_CROIX_ID);
@@ -107,8 +110,18 @@ public class Frame extends JFrame{
 	 	gamemode = new PvIA();
 		inputManager = new InputsManager(renderer.getGraphicPane(), gamemode,PLAYER_ROND_ID);
 		
+		InputsManagerIA IAinputs = new InputsManagerIA(gamemode, PLAYER_CROIX_ID);
+		IAcore IA = new IAcore(IAinputs, gamemode,PLAYER_CROIX_ID);
+		IA.start();
+		
+	}
+	
+	private void StartPvIA2() {
+	 	gamemode = new PvIA();
+		inputManager = new InputsManager(renderer.getGraphicPane(), gamemode,PLAYER_ROND_ID);
+		
 		InputsManagerIA IA2inputs = new InputsManagerIA(gamemode, PLAYER_CROIX_ID);
-		LearningIAcore IA2 = new LearningIAcore(IA2inputs, gamemode,PLAYER_CROIX_ID);
+		LearningIAcore IA2 = new LearningIAcore(IA2inputs, gamemode,PLAYER_CROIX_ID,0);
 		IA2.start();
 		
 	}
@@ -117,6 +130,13 @@ public class Frame extends JFrame{
 		 gamemode = new PvP();
 		 inputManager = new InputsManager(renderer.getGraphicPane(), gamemode, PLAYER_ROND_ID);
 		}
+	class LearningIAListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			switchPane();
+			StartPvIA2();
+		}
+	}
+	
 	class IAvIAListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			switchPane();
