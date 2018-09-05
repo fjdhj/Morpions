@@ -83,7 +83,7 @@ public class IAcore extends Thread{
 							
 							sim = Simu.Min(gameState, profondeur-1); // On simul ce que pourait joueur le joueur
 							
-							if(sim > max) {
+							if(sim > max || (sim == max && Math.random() >=  0.5)) {
 								max = sim;
 								maxX = x + 1;
 								maxY = y + 1;

@@ -23,7 +23,7 @@ public class Simu {
 					
 					sim = Max(gameState, profondeur-1); // On simul ce que pourait joueur l'IA
 					
-					if(sim < min) {
+					if(sim < min || (sim == min && Math.random() >=  0.5)) {
 						min = sim;
 					}
 					gameState[x][y] = 0;
@@ -54,7 +54,7 @@ public class Simu {
 					
 					sim = Min(gameState, profondeur-1); // On simul ce que pourait joueur le joueur
 					
-					if(sim > max) {
+					if(sim > max || (sim == max && Math.random() >=  0.5)) {
 						max = sim;
 					}
 					gameState[x][y] = 0;
