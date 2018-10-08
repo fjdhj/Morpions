@@ -23,7 +23,7 @@ public abstract class GameLogic {
 	protected static int IDTurn;
 	protected static int winnerID = VOID_ID;
 	
-	public GameLogic() {
+	public GameLogic() { //Ajouter un constructeur pour choisir le tour
 		double random = Math.random()*10;
 		if(random>=5) {
 			IDTurn = ROND_ID;

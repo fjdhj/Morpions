@@ -1,3 +1,8 @@
+/*--------------------------------------------------------------------------------------
+Ajouter une GUI pour la gestion et l'information des états de la connection 
+(? systeme similaire au puissance 4?)
+  --------------------------------------------------------------------------------------
+*/
 package Menu;
 
 import java.awt.BorderLayout;
@@ -21,6 +26,7 @@ import ia.IAcore;
 import ia.InputsManagerIA;
 import ia.LearningIAcore;
 import ia.PvIA;
+import netcode.*;
 import objects.Croix;
 import objects.Jeton;
 import objects.Rond;
@@ -37,6 +43,8 @@ public class Frame extends JFrame{
 	private static JButton PvIA2 = new JButton("Joueur VS LearningIA");
 	private static JButton player = new JButton("Joueur VS Joueur");
 	private static JButton IAvsIA = new JButton("IA VS IA");
+	private static JButton playAsServer = new JButton("Play as: Server");
+	private static JButton playAsClient = new JButton("Play as: Client");
 	
 	private static JPanel PANtitle = new JPanel();
 	private static JPanel PANbutton = new JPanel();
@@ -64,12 +72,16 @@ public class Frame extends JFrame{
 		PvIA2.addActionListener(new LearningIAListener());
 		player.addActionListener(new playerListener());
 		IAvsIA.addActionListener(new IAvIAListener());
+		playAsServer.addActionListener(new playAsServerListener());
+		playAsClient.addActionListener(new playAsClientListener());
 		
 		
 		PANbutton.add(PvIA);
 		PANbutton.add(PvIA2);
 		PANbutton.add(player);
 		PANbutton.add(IAvsIA);
+		PANbutton.add(playAsServer);
+		PANbutton.add(playAsClient);
 		
 		PANglobal.add(PANtitle, BorderLayout.NORTH);
 		PANglobal.add(PANbutton, BorderLayout.CENTER);
@@ -93,6 +105,26 @@ public class Frame extends JFrame{
 		}
 
 }
+	private void playAsServerListener() {
+		gamemode = new PvIA();
+		inputManager = new InputsManager(renderer.getGraphicPane(), gamemode,PLAYER_CROIX_ID);
+
+		InputsManagerIA IAinputs = new InputsManagerIA(gamemode, PLAYER_ROND_ID);
+		Server server = new Server(IAinputs);
+		server.start();
+		
+	}
+	
+	private void playAsClientListener() {
+		gamemode = new PvIA();
+		inputManager = new InputsManager(renderer.getGraphicPane(), gamemode,PLAYER_ROND_ID);
+
+		InputsManagerIA IAinputs = new InputsManagerIA(gamemode, PLAYER_CROIX_ID);
+		Client cLient = new Client("localhost",IAinputs); 							// IP§!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		cLient.start();
+		
+	}
+	
 	private void StartIAvIA() {
 		gamemode = new PvIA();
 		
@@ -130,10 +162,25 @@ public class Frame extends JFrame{
 		 gamemode = new PvP();
 		 inputManager = new InputsManager(renderer.getGraphicPane(), gamemode, PLAYER_ROND_ID);
 		}
+	
 	class LearningIAListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			switchPane();
 			StartPvIA2();
+		}
+	}
+	
+	class playAsServerListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			switchPane();
+			playAsServerListener();
+		}
+	}
+	
+	class playAsClientListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			switchPane();
+			playAsClientListener();
 		}
 	}
 	
