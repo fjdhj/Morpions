@@ -19,6 +19,7 @@ public class Panel extends JPanel {
 	private int width;
 	private ArrayList<Jeton> RenderList = new ArrayList<Jeton>();
 	private String stringToRender;
+	private String debugMessage;
 
 	public void paintComponent(Graphics g){
 		height = this.getHeight();
@@ -61,8 +62,15 @@ public class Panel extends JPanel {
 		
 		// on fait le rendu d'un texte si il y en a
 		if(stringToRender != null) {
+			g.setColor(Color.black);
 			g.setFont(new Font("Impact", Font.ITALIC, 20));
 			g.drawString(stringToRender, width/2-stringToRender.length()*4, height/2);
+		}
+		
+		if(debugMessage != null) {
+			g.setColor(Color.red);
+			g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 10));
+			g.drawString(debugMessage, 10, 10);
 		}
 	}
 	
@@ -94,4 +102,11 @@ public class Panel extends JPanel {
 	public void prepare(ArrayList<Jeton> objectsToRenderList) {
 		RenderList = objectsToRenderList;
 	}
+
+
+	public void debugMessage(String status) {
+		debugMessage = status;
+		
+	}
+
 }

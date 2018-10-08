@@ -11,15 +11,15 @@ import objects.*;
 
 /*-----------------UTILISATION DE LA CLASSE-----------------------
 
-Objet à construire une unique fois.
+Objet ï¿½ construire une unique fois.
 
 Le constructeur peut prendre une JFrame ou des parametres. 
-Si l'objet a été construit sans parametres il est obligatoire d'invoquer 
-la méthode init().
+Si l'objet a ï¿½tï¿½ construit sans parametres il est obligatoire d'invoquer 
+la mï¿½thode init().
 
 La methode render() prends en argument une liste d'objets Jeton. 
 ATTENTION, les jetons doivent etre des ronds ou des croix!!!!
-définis comme suit:   Jeton jeton = new Croix(1,1);
+dï¿½finis comme suit:   Jeton jeton = new Croix(1,1);
 
 -----------------------------FIN--------------------------------*/
 
@@ -70,7 +70,7 @@ public class MasterRenderer {
 		}
 	}		
 	
-	//Méthode de rendu
+	//Mï¿½thode de rendu
 	public static void render(ArrayList<Jeton> ObjectsToRenderList){
 		ContentPane.prepare(ObjectsToRenderList);
 		ContentPane.repaint();
@@ -82,6 +82,11 @@ public class MasterRenderer {
 		ContentPane.prepare(ObjectsToRenderList);
 	}
 	
+	public static void updateNetworkStatus(String status) {
+		ContentPane.debugMessage(status);
+		ContentPane.repaint();
+
+	}
 	
 	public JPanel getGraphicPane() {
 		return ContentPane;

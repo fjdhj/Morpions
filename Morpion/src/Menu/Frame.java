@@ -108,7 +108,7 @@ public class Frame extends JFrame{
 	private void playAsServerListener() {
 		gamemode = new PvIA();
 		inputManager = new InputsManager(renderer.getGraphicPane(), gamemode,PLAYER_CROIX_ID);
-
+		
 		InputsManagerIA IAinputs = new InputsManagerIA(gamemode, PLAYER_ROND_ID);
 		Server server = new Server(IAinputs);
 		server.start();
