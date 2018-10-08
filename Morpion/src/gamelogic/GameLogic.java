@@ -55,7 +55,7 @@ public abstract class GameLogic {
 	}
 	
 	protected void isGameFinished() throws GameLogicException {
-		if(JetonsList.size()==9) {
+		if(JetonsList.size()==9 || winnerID != VOID_ID) {
 			throw new GameLogicException(ErrorID.GAME_OVER_ID, 0);
 		}	
 	}
@@ -81,7 +81,7 @@ public abstract class GameLogic {
 			winnerID = winner;
 			MasterRenderer.renderText("Partie terminee",0);
 			if(winner!=EX_AEQUO_ID) {
-			MasterRenderer.renderText("L'Equipe "+playerIdToString(winner) + "a gagne!!", 2000);
+			MasterRenderer.renderText("L'Equipe "+playerIdToString(winner) + " a gagne!!", 2000);
 			}
 		}
 	}		
