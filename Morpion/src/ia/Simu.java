@@ -11,7 +11,7 @@ public class Simu {
 			return(eval(gameState)); 
 		}
 		
-		int min = -1000;
+		int min = 10000;
 		int x, y, sim;
 		
 		for(y = 0; y < 3; y++) {
@@ -23,7 +23,7 @@ public class Simu {
 					
 					sim = Max(gameState, profondeur-1); // On simul ce que pourait joueur l'IA
 					
-					if(sim < min) {
+					if(sim < min || (sim == min && Math.random() >=  0.5)) {
 						min = sim;
 					}
 					gameState[x][y] = 0;
@@ -42,7 +42,7 @@ public class Simu {
 			return(eval(gameState)); 
 		}
 		
-		int max = 1000;
+		int max = -10000;
 		int x, y, sim;
 		
 		for(y = 0; y < 3; y++) {
@@ -54,7 +54,7 @@ public class Simu {
 					
 					sim = Min(gameState, profondeur-1); // On simul ce que pourait joueur le joueur
 					
-					if(sim > max) {
+					if(sim > max || (sim == max && Math.random() >=  0.5)) {
 						max = sim;
 					}
 					gameState[x][y] = 0;
@@ -94,11 +94,13 @@ public class Simu {
 		}else if(winer == 2) { //Victoire Player
 			return(-1000 + nbr_pions);
 			
-		}else if(winer == 3) { //Si fini + personne ne gagne
-			return(3);
-			
-		}else {
+		}else if(winer == 0){ //Si pas fini
 			return(0);
+
+		}else {
+			int playerSeries[] = IA_calculateVictori.nbr_series(gameState, 2);	
+			return(playerSeries[0] - playerSeries[1]);
+			
 		}
 		
 		
